@@ -1,9 +1,9 @@
-const sequelize = require('./config/database');
-const seedUsers = require('./seeds/users');
-const seedGroups = require('./seeds/groups');
-const seedHobbies = require('./seeds/hobbies');
-const seedUserGroups = require('./seeds/userGroups');
-const seedUserHobbies = require('./seeds/userHobbies');
+const sequelize = require("../config/connection");
+const seedUsers = require("./users");
+const seedGroups = require("./groups");
+const seedHobbies = require("./hobbies");
+const seedUserGroups = require("./userGroups");
+const seedUserHobbies = require("./userHobbies");
 
 const seedDatabase = async () => {
   try {
@@ -13,10 +13,10 @@ const seedDatabase = async () => {
     await seedHobbies();
     await seedUserGroups();
     await seedUserHobbies();
-    console.log('Database seeding completed');
+    console.log("Database seeding completed");
     process.exit();
   } catch (error) {
-    console.error('Error seeding database:', error);
+    console.error("Error seeding database:", error);
     process.exit(1);
   }
 };
