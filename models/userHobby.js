@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const User = require('./User');
-const Hobby = require('./Hobby');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const User = require("./user");
+const Hobby = require("./hobby");
 
-const UserHobby = sequelize.define('UserHobby', {
+const UserHobby = sequelize.define("UserHobby", {
   user_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -17,13 +17,13 @@ const UserHobby = sequelize.define('UserHobby', {
 
 User.belongsToMany(Hobby, {
   through: UserHobby,
-  foreignKey: 'user_id',
-  otherKey: 'hobby_id',
+  foreignKey: "user_id",
+  otherKey: "hobby_id",
 });
 Hobby.belongsToMany(User, {
   through: UserHobby,
-  foreignKey: 'hobby_id',
-  otherKey: 'user_id',
+  foreignKey: "hobby_id",
+  otherKey: "user_id",
 });
 
 module.exports = UserHobby;
