@@ -1,7 +1,7 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-const Group = sequelize.define('Group', {
+const Group = sequelize.define("Group", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
