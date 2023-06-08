@@ -1,9 +1,9 @@
 //import models
-const Group = require("./group");
-const Hobby = require("./hobby");
-const User = require("./user");
-const UserGroup = require("./userGroup");
-const UserHobby = require("./userHobby");
+const Group = require("./Group");
+const Hobby = require("./Hobby");
+const User = require("./User");
+const UserGroup = require("./UserGroup");
+const UserHobby = require("./UserHobby");
 
 // UserGroup belongsTo User
 UserGroup.belongsto(User, {
