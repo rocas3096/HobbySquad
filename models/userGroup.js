@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const User = require('./User');
-const Group = require('./Group');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const User = require("./user");
+const Group = require("./group");
 
-const UserGroup = sequelize.define('UserGroup', {
+const UserGroup = sequelize.define("UserGroup", {
   user_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -17,13 +17,13 @@ const UserGroup = sequelize.define('UserGroup', {
 
 User.belongsToMany(Group, {
   through: UserGroup,
-  foreignKey: 'user_id',
-  otherKey: 'group_id',
+  foreignKey: "user_id",
+  otherKey: "group_id",
 });
 Group.belongsToMany(User, {
   through: UserGroup,
-  foreignKey: 'group_id',
-  otherKey: 'user_id',
+  foreignKey: "group_id",
+  otherKey: "user_id",
 });
 
 module.exports = UserGroup;
