@@ -1,9 +1,9 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class UserGroup extends Model {}
+class UserHasGroup extends Model {}
 
-UserGroup.init(
+UserHasGroup.init(
   {
     user_id: {
       type: DataTypes.INTEGER,
@@ -11,16 +11,14 @@ UserGroup.init(
       primaryKey: true,
     },
     group_id: {
-      type: DataTypes.STRING(45),
-      allowNull: true,
-    },
-    User_idUser: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
     },
-    group_id1: {
+    group_tag_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
     },
   },
   {
@@ -28,9 +26,10 @@ UserGroup.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "UserGroup",
-    tableName: "user_group",
+    modelName: "UserHasGroup",
+    tableName: "user_has_group",
   }
 );
 
-module.exports = UserGroup;
+module.exports = UserHasGroup;
+

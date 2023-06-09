@@ -7,12 +7,13 @@ HobbyTag.init(
   {
     hobby_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
+      primaryKey: true,
     },
     tag_id: {
-      type: DataTypes.STRING(45),
-      allowNull: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
     },
   },
   {

@@ -1,11 +1,11 @@
 const sequelize = require("../config/connection");
-const seedUsers = require("./users");
-const seedGroups = require("./groups");
-const seedHobbies = require("./hobbies");
-const seedUserGroups = require("./userGroups");
-const seedUserHobbies = require("./userHobbies");
+const seedUsers = require("./user");
+const seedGroups = require("./group");
+const seedHobbies = require("./hobby");
+const seedHobbyHasTag = require("./hobbyTag");
 const seedTags = require("./tag");
-const seedHobbyTags = require("./hobbyTag");
+const seedUserGroup = require("./userGroup");
+const seedUserHobby = require("./userHobby");
 
 const seedAll = async () => {
   try {
@@ -13,10 +13,10 @@ const seedAll = async () => {
     await seedUsers();
     await seedGroups();
     await seedHobbies();
-    await seedUserGroups();
-    await seedUserHobbies();
+    await seedHobbyHasTag();
     await seedTags();
-    await seedHobbyTags();
+    await seedUserGroup();
+    await seedUserHobby();
     console.log("Database seeding completed");
     process.exit();
   } catch (error) {

@@ -1,9 +1,9 @@
 const Group = require("../models/group");
 
 const groupData = [
-  { id: 1, hobby_id: "hobby1", group_id: "group1", tag_id: 1, tag_hobby_tag_hobby_id: 1 },
-  { id: 2, hobby_id: "hobby2", group_id: "group2", tag_id: 2, tag_hobby_tag_hobby_id: 2 },
-  { id: 3, hobby_id: "hobby3", group_id: "group3", tag_id: 3, tag_hobby_tag_hobby_id: 3 },
+  { group_name: "Group 1", tag_id: 1 },
+  { group_name: "Group 2", tag_id: 2 },
+  { group_name: "Group 3", tag_id: 3 },
 ];
 
 const seedGroups = async () => {
@@ -16,3 +16,4 @@ const seedGroups = async () => {
 };
 
 module.exports = seedGroups;
+

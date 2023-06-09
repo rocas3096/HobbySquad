@@ -7,22 +7,15 @@ Group.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    hobby_id: {
-      type: DataTypes.STRING(45),
-      allowNull: true,
-    },
-    group_id: {
+    group_name: {
       type: DataTypes.STRING(45),
       allowNull: true,
     },
     tag_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    tag_hobby_tag_hobby_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -38,3 +31,4 @@ Group.init(
 );
 
 module.exports = Group;
+

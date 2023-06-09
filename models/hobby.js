@@ -7,20 +7,13 @@ Hobby.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING(45),
       allowNull: true,
-    },
-    user_hobby_user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    hobby_tag_hobby_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
     },
   },
   {

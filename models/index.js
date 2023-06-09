@@ -1,54 +1,59 @@
-const sequelize = require("../config/connection");
-const { DataTypes } = require("sequelize");
-
-const UserModel = require("./user");
+const User = require("./user");
 const Group = require("./group");
 const Hobby = require("./hobby");
-const UserGroup = require("./userGroup");
-const UserHobby = require("./userHobby");
+const HobbyHasTag = require("./hobbyTag");
 const Tag = require("./tag");
-const HobbyTag = require("./hobbyTag");
+const UserHasGroup = require("./userGroup");
+const UserHasHobby = require("./userHobby");
 
-const defineModels = async () => {
-  const User = UserModel.init(sequelize, DataTypes);
-  const TagModel = Tag.init(sequelize, DataTypes);
-  const HobbyTag = HobbyTag.init(sequelize, DataTypes);
+// Associations
+User.belongsToMany(Group, {
+  through: UserHasGroup,
+  foreignKey: "user_id",
+  otherKey: "group_id",
+});
+Group.belongsToMany(User, {
+  through: UserHasGroup,
+  foreignKey: "group_id",
+  otherKey: "user_id",
+});
 
-  User.hasMany(UserHobby, { foreignKey: "user_id" });
-  UserHobby.belongsTo(User, { foreignKey: "user_id" });
+User.belongsToMany(Hobby, {
+  through: UserHasHobby,
+  foreignKey: "user_id",
+  otherKey: "hobby_id",
+});
+Hobby.belongsToMany(User, {
+  through: UserHasHobby,
+  foreignKey: "hobby_id",
+  otherKey: "user_id",
+});
 
-  Hobby.hasMany(UserHobby, { foreignKey: "hobby_id" });
-  UserHobby.belongsTo(Hobby, { foreignKey: "hobby_id" });
+Hobby.belongsToMany(Tag, {
+  through: HobbyHasTag,
+  foreignKey: "hobby_id",
+  otherKey: "tag_id",
+});
+Tag.belongsToMany(Hobby, {
+  through: HobbyHasTag,
+  foreignKey: "tag_id",
+  otherKey: "hobby_id",
+});
 
-  User.belongsToMany(Group, {
-    through: UserGroup,
-    foreignKey: "user_id",
-    otherKey: "group_id",
-  });
-  Group.belongsToMany(User, {
-    through: UserGroup,
-    foreignKey: "group_id",
-    otherKey: "user_id",
-  });
+Group.hasOne(Tag, {
+  foreignKey: "id",
+});
+Tag.belongsTo(Group, {
+  foreignKey: "id",
+});
 
-  // Define associations for TagModel and HobbyTag
-  TagModel.hasMany(HobbyTag, { foreignKey: "tag_id" });
-  HobbyTag.belongsTo(TagModel, { foreignKey: "tag_id" });
-
-  Hobby.hasMany(HobbyTag, { foreignKey: "hobby_id" });
-  HobbyTag.belongsTo(Hobby, { foreignKey: "hobby_id" });
-
-  await sequelize.sync({ alter: true }); // Sync the models with the database
-
-  return {
-    User,
-    Group,
-    Hobby,
-    UserGroup,
-    UserHobby,
-    Tag: TagModel,
-    HobbyTag,
-  };
+// Export the models
+module.exports = {
+  User,
+  Group,
+  Hobby,
+  HobbyHasTag,
+  Tag,
+  UserHasGroup,
+  UserHasHobby,
 };
-
-module.exports = defineModels;
