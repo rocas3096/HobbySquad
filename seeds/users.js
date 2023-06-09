@@ -1,4 +1,4 @@
-const { UserModel } = require("../models");
+const  UserModel = require("../models/user");
 
 const userData = [
   { idUser: 1, username: "user1", password: "password1" },
@@ -16,4 +16,3 @@ const seedUsers = async () => {
 };
 
 module.exports = seedUsers;
-

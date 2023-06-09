@@ -1,4 +1,4 @@
-const { UserHobby } = require("../models");
+const UserHobby = require("../models/userHobby");
 
 const userHobbyData = [
   { user_id: 1, hobby_id: "hobby1" },

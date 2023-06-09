@@ -1,4 +1,4 @@
-const { HobbyTag } = require("../models");
+const HobbyTag = require("../models/hobbyTag");
 
 const hobbyTagData = [
   { hobby_id: 1, tag_id: "tag1" },

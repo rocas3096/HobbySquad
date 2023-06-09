@@ -1,4 +1,4 @@
-const { UserGroup } = require("../models");
+const UserGroup = require("../models/userGroup");
 
 const userGroupData = [
   { user_id: 1, group_id: "group1", User_idUser: 1, group_id1: 1 },

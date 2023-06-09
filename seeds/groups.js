@@ -1,4 +1,4 @@
-const { Group } = require("../models");
+const Group = require("../models/group");
 
 const groupData = [
   { id: 1, hobby_id: "hobby1", group_id: "group1", tag_id: 1, tag_hobby_tag_hobby_id: 1 },
