@@ -1,9 +1,9 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Group extends Model {}
+class Tag extends Model {}
 
-Group.init(
+Tag.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,13 +11,9 @@ Group.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    group_name: {
+    name: {
       type: DataTypes.STRING(45),
       allowNull: true,
-    },
-    tag_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
     },
   },
   {
@@ -25,10 +21,9 @@ Group.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "Group",
-    tableName: "group",
+    modelName: "Tag",
+    tableName: "tag",
   }
 );
 
-module.exports = Group;
-
+module.exports = Tag;
