@@ -1,19 +1,30 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/connection");
 const User = require("./user");
 const Group = require("./group");
 
-const UserGroup = sequelize.define("UserGroup", {
-  user_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
+class UserGroup extends Model {}
+
+UserGroup.init(
+  {
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+    },
+    group_id: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    },
   },
-  group_id: {
-    type: DataTypes.STRING(45),
-    allowNull: true,
-  },
-});
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "UserGroup",
+  }
+);
 
 User.belongsToMany(Group, {
   through: UserGroup,

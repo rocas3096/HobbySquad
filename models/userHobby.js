@@ -1,19 +1,30 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/connection");
 const User = require("./user");
 const Hobby = require("./hobby");
 
-const UserHobby = sequelize.define("UserHobby", {
-  user_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
+class UserHobby extends Model {}
+
+UserHobby.init(
+  {
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+    },
+    hobby_id: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    },
   },
-  hobby_id: {
-    type: DataTypes.STRING(45),
-    allowNull: true,
-  },
-});
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "UserHobby",
+  }
+);
 
 User.belongsToMany(Hobby, {
   through: UserHobby,

@@ -5,7 +5,7 @@ const seedHobbies = require("./hobbies");
 const seedUserGroups = require("./userGroups");
 const seedUserHobbies = require("./userHobbies");
 
-const seedDatabase = async () => {
+const seedAll = async () => {
   try {
     await sequelize.sync({ force: true });
     await seedUsers();
@@ -17,8 +17,8 @@ const seedDatabase = async () => {
     process.exit();
   } catch (error) {
     console.error("Error seeding database:", error);
-    process.exit(1);
+    process.exit(0);
   }
 };
 
-seedDatabase();
+seedAll();

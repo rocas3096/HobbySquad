@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { UserModel } = require('../models');
 
 const users = [
   { idUser: 1, username: 'user1', password: 'password1' },
@@ -8,7 +8,7 @@ const users = [
 
 const seedUsers = async () => {
   try {
-    await User.bulkCreate(users);
+    await UserModel.bulkCreate(users);
     console.log('Users seeded successfully');
   } catch (error) {
     console.error('Error seeding users:', error);
