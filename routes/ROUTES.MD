@@ -1,3 +1,5 @@
+# Routes
+
 **User Routes:**
 
 1. Create a new user:
@@ -109,10 +111,10 @@
    - Request body:
      ```json
      {
-       "tag_name
+       "tag_name": "Tag 1",
+       "
 
-": "Tag 1",
-       "description": "This is tag 1"
+description": "This is tag 1"
      }
      ```
 
@@ -196,9 +198,9 @@
    - Replace `:userId` with the ID of the user for which you want to retrieve groups.
 
 4. Get a specific group associated with a user:
-   - Route
+   - Route: `GET /api/users/:userId
 
-: `GET /api/users/:userId/groups/:groupId`
+/groups/:groupId`
    - Replace `:userId` with the ID of the user.
    - Replace `:groupId` with the ID of the group you want to retrieve.
 
