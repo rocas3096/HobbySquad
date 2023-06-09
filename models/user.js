@@ -9,7 +9,7 @@ UserModel.init(
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
-      field: 'id_user',
+      field: "idUser",
     },
     username: {
       type: DataTypes.STRING(45),
@@ -18,6 +18,11 @@ UserModel.init(
     password: {
       type: DataTypes.STRING(45),
       allowNull: true,
+    },
+    user_hobby_user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: "user_hobby_user_id",
     },
   },
   {

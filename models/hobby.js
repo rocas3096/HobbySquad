@@ -14,9 +14,13 @@ Hobby.init(
       type: DataTypes.STRING(45),
       allowNull: true,
     },
-    tags: {
-      type: DataTypes.STRING(45),
-      allowNull: true,
+    user_hobby_user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    hobby_tag_hobby_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {
@@ -25,6 +29,7 @@ Hobby.init(
     freezeTableName: true,
     underscored: true,
     modelName: "Hobby",
+    tableName: "hobby",
   }
 );
 

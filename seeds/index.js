@@ -4,6 +4,8 @@ const seedGroups = require("./groups");
 const seedHobbies = require("./hobbies");
 const seedUserGroups = require("./userGroups");
 const seedUserHobbies = require("./userHobbies");
+const seedTags = require("./tag");
+const seedHobbyTags = require("./hobbyTag");
 
 const seedAll = async () => {
   try {
@@ -13,6 +15,8 @@ const seedAll = async () => {
     await seedHobbies();
     await seedUserGroups();
     await seedUserHobbies();
+    await seedTags();
+    await seedHobbyTags();
     console.log("Database seeding completed");
     process.exit();
   } catch (error) {

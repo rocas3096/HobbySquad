@@ -1,16 +1,16 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class UserHobby extends Model {}
+class HobbyTag extends Model {}
 
-UserHobby.init(
+HobbyTag.init(
   {
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-    },
     hobby_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+    },
+    tag_id: {
       type: DataTypes.STRING(45),
       allowNull: true,
     },
@@ -20,9 +20,9 @@ UserHobby.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "UserHobby",
-    tableName: "user_hobby",
+    modelName: "HobbyTag",
+    tableName: "hobby_tag",
   }
 );
 
-module.exports = UserHobby;
+module.exports = HobbyTag;
