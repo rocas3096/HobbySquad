@@ -11,7 +11,7 @@ const HobbyTag = require("./hobbyTag");
 
 const defineModels = async () => {
   const User = UserModel.init(sequelize, DataTypes);
-  const Tag = Tag.init(sequelize, DataTypes);
+  const TagModel = Tag.init(sequelize, DataTypes);
   const HobbyTag = HobbyTag.init(sequelize, DataTypes);
 
   User.hasMany(UserHobby, { foreignKey: "user_id" });
@@ -31,9 +31,9 @@ const defineModels = async () => {
     otherKey: "user_id",
   });
 
-  // Define associations for Tag and HobbyTag
-  Tag.hasMany(HobbyTag, { foreignKey: "tag_id" });
-  HobbyTag.belongsTo(Tag, { foreignKey: "tag_id" });
+  // Define associations for TagModel and HobbyTag
+  TagModel.hasMany(HobbyTag, { foreignKey: "tag_id" });
+  HobbyTag.belongsTo(TagModel, { foreignKey: "tag_id" });
 
   Hobby.hasMany(HobbyTag, { foreignKey: "hobby_id" });
   HobbyTag.belongsTo(Hobby, { foreignKey: "hobby_id" });
@@ -46,7 +46,7 @@ const defineModels = async () => {
     Hobby,
     UserGroup,
     UserHobby,
-    Tag,
+    Tag: TagModel,
     HobbyTag,
   };
 };
