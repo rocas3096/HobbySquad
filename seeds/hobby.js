@@ -1,9 +1,16 @@
 const Hobby = require("../models/hobby");
 
 const hobbyData = [
-  { title: "Hobby 1" },
-  { title: "Hobby 2" },
-  { title: "Hobby 3" },
+  { title: "Painting" },
+  { title: "Photography" },
+  { title: "Gardening" },
+  { title: "Cooking" },
+  { title: "Playing Guitar" },
+  { title: "Writing" },
+  { title: "Knitting" },
+  { title: "Woodworking" },
+  { title: "Hiking" },
+  { title: "Dancing" },
 ];
 
 const seedHobbies = async () => {

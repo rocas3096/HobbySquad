@@ -1,0 +1,47 @@
+.hero {
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+  width: max-content;
+  margin: 0 auto;
+}
+.hero-message {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: max-content;
+  margin: 0 auto;
+  padding: 60px 115px;
+  margin-bottom: 100px;
+}
+.hero-heading {
+  font-family: var(--secondary-font);
+  color: white;
+  font-size: 72px;
+  margin-bottom: 30px;
+}
+.hero-text {
+  color: var(--secondary-color);
+  font-size: 60px;
+  text-align: center;
+  letter-spacing: 0.135em;
+  word-spacing: 1.2rem;
+}
+.hero-btn:link,
+.hero-btn:visited {
+  display: block;
+  width: max-content;
+
+  text-decoration: none;
+  color: white;
+  font-family: var(--secondary-font);
+  background: linear-gradient(180deg, #1c75dd 22.16%, #000000 263.37%);
+  padding: 14px 25px;
+  border-radius: 10px;
+  font-size: 20px;
+  margin: 0 auto;
+}
+.hero-btn:hover,
+.hero-btn:active {
+  text-decoration: none;
+  color: white;
+  font-family: var(--secondary-font);
+}

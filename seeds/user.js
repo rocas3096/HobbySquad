@@ -1,9 +1,16 @@
 const User = require("../models/user");
 
 const userData = [
-  { username: "user1", password: "password1" },
-  { username: "user2", password: "password2" },
-  { username: "user3", password: "password3" },
+  { username: "johnsmith", password: "p@ssw0rd!" },
+  { username: "janedoe", password: "s3cur3p@ss" },
+  { username: "mikejones", password: "p@$$w0rd123" },
+  { username: "sarahbrown", password: "mySecretPassword" },
+  { username: "alexwilson", password: "p@ssw0rd!" },
+  { username: "emilymartin", password: "secur3d@t@" },
+  { username: "davidlee", password: "p@ssw0rd123" },
+  { username: "lisasmith", password: "mySecretPassword" },
+  { username: "ryanmiller", password: "p@$$w0rd!" },
+  { username: "jessicawood", password: "secur3d@t@" },
 ];
 
 const seedUsers = async () => {

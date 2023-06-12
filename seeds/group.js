@@ -1,9 +1,16 @@
 const Group = require("../models/group");
 
 const groupData = [
-  { group_name: "Group 1", tag_id: 1 },
-  { group_name: "Group 2", tag_id: 2 },
-  { group_name: "Group 3", tag_id: 3 },
+  { group_name: "Adventure Hiking Group", tag_id: 1 },
+  { group_name: "Fitness Bootcamp Group", tag_id: 2 },
+  { group_name: "Yoga Enthusiasts Group", tag_id: 3 },
+  { group_name: "Cycling Club Group", tag_id: 1 },
+  { group_name: "Running Buddies Group", tag_id: 2 },
+  { group_name: "Active Seniors Group", tag_id: 3 },
+  { group_name: "Nature Lovers Group", tag_id: 1 },
+  { group_name: "Dance Fever Group", tag_id: 2 },
+  { group_name: "Outdoor Adventures Group", tag_id: 3 },
+  { group_name: "Mindful Meditation Group", tag_id: 1 },
 ];
 
 const seedGroups = async () => {
@@ -16,4 +23,3 @@ const seedGroups = async () => {
 };
 
 module.exports = seedGroups;
-

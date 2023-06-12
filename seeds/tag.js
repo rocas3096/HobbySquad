@@ -1,9 +1,16 @@
 const Tag = require("../models/tag");
 
 const tagData = [
-  { name: "Tag 1" },
-  { name: "Tag 2" },
-  { name: "Tag 3" },
+  { name: "Watercolor Painting" },
+  { name: "Landscape Photography" },
+  { name: "Indoor Gardening" },
+  { name: "Baking" },
+  { name: "Acoustic Guitar" },
+  { name: "Fiction Writing" },
+  { name: "Crocheting" },
+  { name: "Wood Carving" },
+  { name: "Trail Hiking" },
+  { name: "Latin Dance" },
 ];
 
 const seedTags = async () => {

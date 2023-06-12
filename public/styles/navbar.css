@@ -1,0 +1,126 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 30px 60px;
+}
+.auth-links-mobile {
+  display: none;
+}
+.logo {
+}
+.logo svg {
+  display: block;
+  width: 254px;
+  /* background-color: red; */
+}
+.toggler {
+  display: block;
+  cursor: pointer;
+}
+.toggler:hover {
+  color: rgba(255, 255, 255, 0.527);
+}
+.auth-links {
+  color: white;
+  text-transform: uppercase;
+
+  position: relative;
+}
+.nav-dropdown {
+  opacity: 0;
+  background-color: white;
+  width: max-content;
+  height: max-content;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  right: 30%;
+  top: 180%;
+  border-radius: 5px;
+  position: absolute;
+  transition: 0.1s;
+  pointer-events: none;
+  padding: 4px;
+}
+.activate-dropdown {
+  opacity: 1;
+  transition: 0.1s;
+  pointer-events: all;
+}
+.nav-dropdown::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  background-color: inherit;
+  position: absolute;
+  right: 10%;
+  top: -5%;
+  transform: rotate(45deg);
+  z-index: -1;
+  border-radius: 2px;
+}
+.nav-dropdown a {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 10px 60px;
+  cursor: pointer;
+}
+.nav-dropdown a:not(:last-child) {
+  border-bottom: 1px solid rgba(197, 197, 197, 0.651);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.nav-dropdown a:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.nav-dropdown a:hover {
+  background-color: rgba(226, 226, 226, 0.521);
+}
+@media screen and (max-width: 800px) {
+  .auth-links {
+    display: none;
+  }
+  .navbar {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 30px 40px;
+  }
+  .logo svg {
+    display: block;
+    width: 154px;
+  }
+  .auth-links-mobile {
+    display: block;
+    position: relative;
+  }
+  .toggler-mobile > .toggler {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+  }
+  .toggler-mobile {
+    display: block;
+    cursor: pointer;
+  }
+  .toggler-mobile svg {
+    z-index: 1;
+  }
+  .nav-dropdown {
+    transform: translateX(16%) translateY(10%);
+  }
+}

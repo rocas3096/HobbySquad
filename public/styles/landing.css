@@ -1,0 +1,8 @@
+.landing-main {
+  background: url("../images/hobbySquadBG.webp");
+  /* background-color: blue; */
+  height: 750px;
+  background-position: center;
+
+  width: 100vw;
+}
