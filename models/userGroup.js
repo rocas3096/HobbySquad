@@ -32,4 +32,3 @@ UserHasGroup.init(
 );
 
 module.exports = UserHasGroup;
-

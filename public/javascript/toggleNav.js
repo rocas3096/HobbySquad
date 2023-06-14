@@ -1,3 +1,13 @@
+const navbar = document.querySelector(".navbar");
+window.onscroll = () => {
+  if (document.body.scrollTop >= 50) {
+    navbar.classList.add("scrolling");
+    navbar.classList.remove("not-scrolling");
+  } else {
+    navbar.classList.remove("scrolling");
+    navbar.classList.add("not-scrolling");
+  }
+};
 let dropdown = document.querySelectorAll(".nav-dropdown");
 window.addEventListener("click", (e) => {
   if (e.target.className !== "toggler") {
@@ -20,8 +30,3 @@ let toggler = document.querySelectorAll(".toggler");
 Array.from(toggler).map((toggle) =>
   toggle.addEventListener("click", toggleNav)
 );
-// toggler.forEach((toggle) =>
-//   toggle.addEventListener("click", (e) => {
-//     console.log(e.target);
-//   })
-// );

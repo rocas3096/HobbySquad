@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const { User, Group, Hobby } = require("../../models");
+const ExpressError = require("../../util/ExpressError");
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const userData = await User.findAll({
       include: [Group, Hobby],
@@ -12,15 +13,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const userData = await User.findByPk(req.params.id, {
       include: [Group, Hobby],
     });
 
     if (!userData) {
-      res.status(400).json({ message: "No user found with that id!" });
-      return;
+      return next(new ExpressError("No User Found", 404));
     }
 
     res.status(200).json(userData);

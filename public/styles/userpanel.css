@@ -1,0 +1,9 @@
+.userpanel {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: max-content 2fr 500px;
+}
+
+.content {
+  background-color: green;
+}
