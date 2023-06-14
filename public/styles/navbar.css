@@ -6,6 +6,17 @@
   align-items: center;
   width: 100%;
   padding: 30px 60px;
+  z-index: 9999;
+  background-color: transparent;
+  transition: 0.3s;
+}
+/* .not-scrolling {
+  background-color: rgba(255, 0, 0, 0);
+  trans
+} */
+.scrolling {
+  transition: 0.3s;
+  background-color: rgba(0, 0, 0, 0.89);
 }
 .auth-links-mobile {
   display: none;

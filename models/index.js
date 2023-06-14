@@ -7,16 +7,33 @@ const UserHasGroup = require("./userGroup");
 const UserHasHobby = require("./userHobby");
 
 // Associations
+
 User.belongsToMany(Group, {
-  through: UserHasGroup,
+  through: { model: UserHasGroup, unique: false },
   foreignKey: "user_id",
   otherKey: "group_id",
+  as: "Groups",
 });
 Group.belongsToMany(User, {
-  through: UserHasGroup,
+  through: { model: UserHasGroup, unique: false },
   foreignKey: "group_id",
   otherKey: "user_id",
+  as: "Users",
 });
+UserHasGroup.belongsTo(User, {
+  foreignKey: "user_id",
+  as: "User",
+});
+UserHasGroup.belongsTo(Group, {
+  foreignKey: "group_id",
+  as: "Group",
+});
+
+// Group.belongsToMany(User, {
+//   through: UserHasGroup,
+//   foreignKey: "group_id",
+//   otherKey: "user_id",
+// });
 
 User.belongsToMany(Hobby, {
   through: UserHasHobby,

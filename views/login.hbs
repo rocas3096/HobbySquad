@@ -1,0 +1,27 @@
+{{>navbar}}
+<div class="login-container">
+  <div class="login-image">
+    <img src="/images/loginBg.webp" alt="" />
+  </div>
+  <form class="login-form">
+    <span class="login-form-title">Login</span>
+    <div id="login-username-form-group" class="form-group">
+      <input id="login-username" autocomplete="off" name="username" type="text" class="form-input" required="true" />
+      <label for="username" class="form-label">Username</label>
+      <span class="input-error error-activated"></span>
+    </div>
+    <div id="login-password-form-group" class="form-group">
+      <input autocomplete="off" name="password" id="login-password" type="password" class="form-input" required="true" />
+      <label for="password" class="form-label">Password</label> 
+      <span class="input-error"></span>
+      {{>passwordVisibility}}
+    </div>
+    <span class="dont-have-account">Don't have an account? <a class="dont-have-account--link" href="/register">Signup</a></span>
+    <button class="auth-btn auth-btn-login" type="submit">
+        <span>Login</span>
+      
+        <div class="loading-circle"></div>
+    
+      </button>
+  </form>
+</div>

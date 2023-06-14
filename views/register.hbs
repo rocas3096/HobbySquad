@@ -1,0 +1,37 @@
+{{>navbar}}
+<div class="register-container">
+  <div class="register-image">
+    <img src="/images/loginBg.webp" alt="" />
+  </div>
+  <form   class="register-form">
+    <span class="register-form-title">Register</span>
+    <div id="register-username-form-group" class="form-group">
+      <input id="register-username" autocomplete="off" name="username" type="text" class="form-input" required="true" />
+      <label for="username" class="form-label">Username</label>
+      <span class="input-error error-activated"></span>
+    </div>
+    <div id="register-email-form-group" class="form-group">
+      <input id="register-email" autocomplete="off" name="email" type="email" class="form-input" required="true" />
+      <label for="email" class="form-label">Email</label>
+      <span class="input-error error-activated"></span>
+    </div>
+    <div id="register-password-form-group" class="form-group">
+      <input autocomplete="off" name="password" id="register-password" type="password" class="form-input" required="true" />
+      <label for="password" class="form-label">Password</label> 
+      <span class="input-error"></span>
+      {{>passwordVisibility}}
+    </div>
+    <div id="register-confirm-form-group" class="form-group">
+      <input autocomplete="off" name="confirm" id="register-confirm" type="password" class="form-input" required="true" />
+      <label for="confirm" class="form-label">Confirm Password</label> 
+      <span class="input-error"></span>
+    </div>
+    <span class="dont-have-account">Have an account? <a class="dont-have-account--link" href="/login">Login</a></span>
+    <button class="auth-btn auth-btn-register" type="submit">
+        <span>Register</span>
+      
+        <div class="loading-circle"></div>
+    
+      </button>
+  </form>
+</div>

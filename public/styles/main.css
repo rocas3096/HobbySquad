@@ -2,9 +2,24 @@
 @import url("./landing.css");
 @import url("./hero.css");
 @import url("./section.css");
+@import url("./login.css");
+@import url("./passwordVisibility.css");
+@import url("./register.css");
+@import url("./userpanel.css");
+@import url("./leftpanel.css");
+@import url("./rightpanel.css");
+@import url("./search-result.css");
 :root {
   --secondary-font: "Julius Sans One";
   --secondary-color: #1b75dd;
+  --btn-gradient: linear-gradient(180deg, #1c75dd 22.16%, #000000 263.37%);
+  --btn-gradient-faded: linear-gradient(
+    180deg,
+    #204e83d2 22.16%,
+    #000000 263.37%
+  );
+  --error-red: #f07575;
+  --error-dark-red: #e93737;
 }
 * {
   margin: 0;
@@ -14,4 +29,26 @@
 body {
   background-color: rgb(255, 255, 255);
   font-family: "Inter";
+  overflow-x: hidden;
+}
+.auth-btn {
+  display: block;
+  background-color: none;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  background: var(--btn-gradient);
+  padding: 16px 80px;
+  border-radius: 10px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.auth-btn:disabled {
+  background: var(--btn-gradient-faded);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgb(255, 255, 255) inset !important;
 }
