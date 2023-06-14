@@ -27,6 +27,12 @@ Users can also submit their own hobbies ("tags"), which are then added to the we
 ## Installation
 
 ## Contribution
+
+# [Corey Jimenez](https://github.com/jimenez2society)
+# [Oscar Zavala](https://github.com/rocas3096)
+# [Hani Mohammed](https://github.com/haniadenm)
+# [Rachel Blasko](https://github.com/missblasko)
+# [Luke Campbell](https://github.com/lbcamp1117)
   
 ## License
   MIT
