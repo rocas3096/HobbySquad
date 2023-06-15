@@ -29,6 +29,11 @@ UserHasGroup.belongsTo(Group, {
   as: "Group",
 });
 
+// User.belongsToMany(Group, {
+//   through: UserHasGroup,
+//   foreignKey: "user_id",
+//   otherKey: "group_id",
+// });
 // Group.belongsToMany(User, {
 //   through: UserHasGroup,
 //   foreignKey: "group_id",

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const routes = require("./routes");
 const livereload = require("livereload");
@@ -52,17 +54,6 @@ app.get("/user-panel/search", async (req, res, next) => {
   const user = req.session.user;
   const { q } = req.query;
 
-  // let results = await Group.findAll({
-  //   where: {
-  //     [Op.or]: {
-  //       group_name: {
-  //         [Op.like]: `%${q}%`,
-  //       },
-  //       "$Tag.name$": `%${q}%`,
-  //     },
-  //   },
-  //   include: [{ model: Tag }],
-  // });
   let results;
   if (!q || q.length === 0) {
     results = [];
@@ -110,6 +101,7 @@ app.get("/user-panel/search", async (req, res, next) => {
       })
     );
   }
+  console.log({ results });
 
   const searchData = {
     isSearching: true,
