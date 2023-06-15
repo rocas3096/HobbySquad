@@ -11,7 +11,7 @@ router.post("/login", async (req, res, next) => {
 
     if (!userExists) {
       return next(
-        new ExpressError("User does not exists", "user not found", 404)
+        new ExpressError("Invalid Credentials", "user not found", 404)
       );
     }
     const passwordValidated = await bcrypt.compare(
@@ -21,12 +21,14 @@ router.post("/login", async (req, res, next) => {
     if (!passwordValidated) {
       return next(new ExpressError("Incorrect password", "unauthorized", 401));
     }
-    console.log(userExists.password);
+    req.session.user_id = userExists.id;
+    req.session.isLoggedIn = true;
     return res.json("Success");
   } catch (error) {
     console.error(error);
   }
 });
+
 router.post("/register", async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -62,6 +64,7 @@ router.post("/register", async (req, res, next) => {
     console.log(newUser);
     if (newUser) {
       req.session.user = newUser.username;
+      req.session.isLoggedIn = true;
     }
     res.status(201).json({ type: "success" });
   } catch (error) {

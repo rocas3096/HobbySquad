@@ -1,28 +1,27 @@
-const UserGroup = require("../models/userGroup");
+const { User, Group } = require("../models");
 
-const userHasGroupData = [
-  { user_id: 1, group_id: 1, group_tag_id: 1 },
-  { user_id: 2, group_id: 1, group_tag_id: 2 },
-  { user_id: 3, group_id: 1, group_tag_id: 3 },
-  { user_id: 4, group_id: 2, group_tag_id: 4 },
-  { user_id: 5, group_id: 2, group_tag_id: 5 },
-  { user_id: 6, group_id: 3, group_tag_id: 6 },
-  { user_id: 7, group_id: 4, group_tag_id: 7 },
-  { user_id: 8, group_id: 5, group_tag_id: 4 },
-  { user_id: 9, group_id: 6, group_tag_id: 3 },
-  { user_id: 10, group_id: 7, group_tag_id: 3 },
-  { user_id: 10, group_id: 8, group_tag_id: 3 },
-  { user_id: 10, group_id: 9, group_tag_id: 3 },
-  { user_id: 10, group_id: 10, group_tag_id: 3 },
-];
-
-const seedUserGroup = async () => {
+const seedUsersAndGroups = async () => {
   try {
-    await UserGroup.bulkCreate(userHasGroupData);
-    console.log("UserGroup seeded successfully");
+    // Create users and groups
+
+    // ...
+
+    // Create associations between users and groups
+    const userIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const groupIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    for (const userId of userIds) {
+      const user = await User.findByPk(userId);
+      for (const groupId of groupIds) {
+        const group = await Group.findByPk(groupId);
+        await user.addGroup(group);
+        await group.addUser(user);
+      }
+    }
+
+    console.log("Associations seeded successfully");
   } catch (error) {
-    console.error("Error seeding UserGroup:", error);
+    console.error("Error seeding associations:", error);
   }
 };
-
-module.exports = seedUserGroup;
+module.exports = seedUsersAndGroups;

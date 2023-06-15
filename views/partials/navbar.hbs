@@ -21,11 +21,25 @@
 
   </span>
   <div class="auth-links">
-    <span class="toggler">Login/Signup</span>
-    <div class="nav-dropdown">
+    {{#if currentUser}}
+
+      <div class="toggler loggedIn">
+        <span class="user-image">
+          {{>acorn}}
+        </span>
+      </div>
+      <div class="nav-dropdown">
+      <a href="/user-panel">User Panel</a>
+      <a href="/logout">Logout</a>
+    </div>
+    {{else}}
+      <span class="toggler">Login/Signup</span>
+      <div class="nav-dropdown">
       <a href="/login">Login</a>
       <a href="/register">Signup</a>
     </div>
+    {{/if}}
+    
   </div>
   <div class="auth-links-mobile">
     <span class="toggler-mobile">

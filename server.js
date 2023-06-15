@@ -5,10 +5,10 @@ const hbs = require("hbs");
 const path = require("path");
 const connectLiveReload = require("connect-livereload");
 const session = require("express-session");
-// import sequelize connection
 const sequelize = require("./config/connection");
 const { Op } = require("sequelize");
-const { Tag, Group, User, UserHasGroup } = require("./models");
+const { Group, User } = require("./models");
+const { authorizedUser } = require("./middleware/authMiddleware");
 const liveReloadServer = livereload.createServer();
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
@@ -33,17 +33,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(routes);
-app.get("/", (req, res, next) => {
-  res.render("landing", { name: "corey" });
+app.get("/", async (req, res, next) => {
+  const user = req.session;
+  if (user.isLoggedIn) {
+    let currentUser = await User.findByPk(user.user_id);
+    return res.render("landing", { currentUser });
+  }
+
+  res.render("landing");
 });
 app.get("/login", (req, res, next) => {
+  if (req.session.isLoggedIn) {
+    return res.redirect("/user-panel");
+  }
   res.render("login");
 });
 app.get("/register", (req, res, next) => {
+  if (req.session.isLoggedIn) {
+    return res.redirect("/user-panel");
+  }
   res.render("register");
 });
-app.get("/user-panel", async (req, res, next) => {
-  const user = req.session.user;
+
+app.get("/user-panel", authorizedUser, async (req, res, next) => {
+  const user = req.session;
   const { q } = req.query;
 
   res.render("userpanel", { user });
@@ -52,84 +65,44 @@ app.get("/user-panel/search", async (req, res, next) => {
   const user = req.session.user;
   const { q } = req.query;
 
-  // let results = await Group.findAll({
-  //   where: {
-  //     [Op.or]: {
-  //       group_name: {
-  //         [Op.like]: `%${q}%`,
-  //       },
-  //       "$Tag.name$": `%${q}%`,
-  //     },
-  //   },
-  //   include: [{ model: Tag }],
-  // });
   let results;
-  if (!q || q.length === 0) {
-    results = [];
-  } else {
-    results = await Group.findAll({
-      attributes: [
-        "id",
-        "group_name",
-        "tag_id",
-        [
-          sequelize.literal(
-            `(SELECT COUNT(*) FROM user_has_group WHERE user_has_group.group_id = Group.id)`
-          ),
-          "userCount",
-        ],
-      ],
-      where: {
-        [Op.or]: [
-          { group_name: { [Op.like]: `%${q}%` } },
-          { "$Tag.name$": { [Op.like]: `%${q}%` } },
-        ],
-      },
-      include: [
+  try {
+    if (!q || q.length === 0) {
+      results = [];
+    } else {
+      results = await sequelize.query(
+        "SELECT DISTINCT g.id, g.group_name,g.description, COUNT(TRIM(u.`UserId`)) AS user_count FROM `groups` g LEFT JOIN tags t ON g.id = t.group_id LEFT JOIN usergroups u ON g.id = u.`GroupId` WHERE TRIM(g.group_name) LIKE :searchTerm OR TRIM(t.name) LIKE :searchTerm GROUP BY g.id, g.group_name",
         {
-          model: Tag,
-          required: false,
-          where: {
-            name: {
-              [Op.like]: `%${q}%`,
-            },
-          },
-        },
-      ],
-      group: [
-        "Group.id",
-        "Group.group_name",
-        "Group.tag_id",
-        "Tag.id",
-        "Tag.name",
-      ],
-    });
-    console.log(
-      results.forEach((d) => {
-        console.log(d.dataValues.userCount);
-      })
-    );
-  }
+          replacements: { searchTerm: `%${q}%` },
+        }
+      );
+      results = results[0];
+    }
 
-  const searchData = {
-    isSearching: true,
-    quantity: results.length,
-    searchEmpty: results.length === 0,
-    term: q,
-    results,
-  };
-  res.render("userpanel", { searchResults: searchData });
+    const searchData = {
+      isSearching: true,
+      quantity: results.length,
+      searchEmpty: results.length === 0,
+      term: q,
+      results,
+    };
+    res.render("userpanel", { searchResults: searchData });
+  } catch (error) {
+    console.log(error);
+  }
 });
 app.get("/user-panel/group/:id", async (req, res, next) => {
   const { id } = req.params;
   const foundGroup = await Group.findByPk(id);
   res.render("userpanel", { foundGroup });
 });
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   res.status(statusCode).json({ error: message, type: err.type });
 });
+
 // sync sequelize models to the database, then turn on the server
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));

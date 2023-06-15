@@ -8,9 +8,14 @@ window.onscroll = () => {
     navbar.classList.add("not-scrolling");
   }
 };
+
 let dropdown = document.querySelectorAll(".nav-dropdown");
 window.addEventListener("click", (e) => {
-  if (e.target.className !== "toggler") {
+  console.log(e.target.className);
+  if (
+    e.target.className !== "toggler" &&
+    e.target.className !== "toggler loggedIn"
+  ) {
     Array.from(dropdown).map((dd) => dd.classList.remove("activate-dropdown"));
   }
 });

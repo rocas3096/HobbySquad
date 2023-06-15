@@ -21,6 +21,7 @@ const removeValues = (...inputs) => {
     document.querySelector(`#${input}`).value = "";
   });
 };
+
 loginForm &&
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -40,7 +41,6 @@ loginForm &&
       loading(false);
       const formData = new FormData(loginForm, formSubmitter);
       let data = {};
-
       for (const [key, value] of formData) {
         data = { ...data, [key]: value };
       }
@@ -60,7 +60,7 @@ loginForm &&
       });
 
       let res = await results.json();
-      console.log(res);
+
       if (res.error && res.type === "user not found") {
         generateError("login-username", res.error);
         return;
