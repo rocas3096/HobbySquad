@@ -35,3 +35,6 @@ GROUP BY g.id,g.group_name
 SELECT * FROM tags;
 SELECT * FROM usergroups ug
 ;
+
+SELECT * FROM tags;
+SELECT * FROM `groups`;
