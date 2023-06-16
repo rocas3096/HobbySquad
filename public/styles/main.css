@@ -9,6 +9,7 @@
 @import url("./leftpanel.css");
 @import url("./rightpanel.css");
 @import url("./search-result.css");
+@import url("./content.css");
 :root {
   --secondary-font: "Julius Sans One";
   --secondary-color: #1b75dd;
@@ -18,6 +19,7 @@
     #204e83d2 22.16%,
     #000000 263.37%
   );
+  --divider: 1px solid #dbdbdb;
   --error-red: #f07575;
   --error-dark-red: #e93737;
 }

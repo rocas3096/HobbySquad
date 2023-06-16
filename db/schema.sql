@@ -12,7 +12,10 @@ SELECT group_name as `group` ,name as group_tag FROM `groups` g ,tags t WHERE g.
 SELECT group_name,username FROM `groups` JOIN users WHERE groups.group_name LIKE "%go%";
 
 
+SELECT username,content FROM posts p LEFT JOIN users u ON u.id = p.user_id WHERE group_id = 1;
 
+SELECT * FROM `groups` WHERE group_name = "Hiking Enthusiasts";
+SELECT * FROM usergroups; 
 -- SELECT g.id,g.group_name,t.id,t.name
 -- FROM `groups` g 
 -- LEFT JOIN tag gt
@@ -38,3 +41,4 @@ SELECT * FROM usergroups ug
 
 SELECT * FROM tags;
 SELECT * FROM `groups`;
+
