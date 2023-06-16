@@ -100,6 +100,7 @@
   align-items: center;
   justify-content: baseline;
   column-gap: 10px;
+  margin-right: 40px;
 }
 .user-image {
   display: block;

@@ -9,6 +9,7 @@ const sequelize = require("./config/connection");
 const { Op } = require("sequelize");
 const { Group, User } = require("./models");
 const { authorizedUser } = require("./middleware/authMiddleware");
+const UserGroup = require("./models/userGroup");
 const liveReloadServer = livereload.createServer();
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
@@ -19,6 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 app.use(connectLiveReload());
 hbs.registerPartials(path.join(__dirname, "views/partials"));
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(
@@ -33,10 +35,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(routes);
+
 app.get("/", async (req, res, next) => {
   const user = req.session;
+
   if (user.isLoggedIn) {
     let currentUser = await User.findByPk(user.user_id);
+    console.log(currentUser);
     return res.render("landing", { currentUser });
   }
 
@@ -57,11 +62,10 @@ app.get("/register", (req, res, next) => {
 
 app.get("/user-panel", authorizedUser, async (req, res, next) => {
   const user = req.session;
-  const { q } = req.query;
-
-  res.render("userpanel", { user });
+  const currentUser = await User.findByPk(user.user_id);
+  res.render("userpanel", { currentUser });
 });
-app.get("/user-panel/search", async (req, res, next) => {
+app.get("/user-panel/search", authorizedUser, async (req, res, next) => {
   const user = req.session.user;
   const { q } = req.query;
 
@@ -93,7 +97,14 @@ app.get("/user-panel/search", async (req, res, next) => {
 });
 app.get("/user-panel/group/:id", async (req, res, next) => {
   const { id } = req.params;
+  const user = req.session.user_id;
   const foundGroup = await Group.findByPk(id);
+  const userBelongsToGroup = await UserGroup.findOne({
+    where: { UserId: 12, GroupId: id },
+  });
+  if (userBelongsToGroup) {
+    return res.render("userpanel", { foundGroup, userBelongsToGroup });
+  }
   res.render("userpanel", { foundGroup });
 });
 
