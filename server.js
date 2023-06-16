@@ -99,11 +99,18 @@ app.get("/user-panel/group/:id", async (req, res, next) => {
   const { id } = req.params;
   const user = req.session.user_id;
   const foundGroup = await Group.findByPk(id);
+  const groupMembers = await UserGroup.count({ where: { GroupId: id } });
+  foundGroup.user_count = groupMembers;
+  console.log(foundGroup);
   const userBelongsToGroup = await UserGroup.findOne({
     where: { UserId: 12, GroupId: id },
   });
   if (userBelongsToGroup) {
-    return res.render("userpanel", { foundGroup, userBelongsToGroup });
+    return res.render("userpanel", {
+      foundGroup,
+      userBelongsToGroup,
+      groupMembers,
+    });
   }
   res.render("userpanel", { foundGroup });
 });

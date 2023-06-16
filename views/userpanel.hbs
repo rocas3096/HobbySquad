@@ -1,18 +1,6 @@
 
 <div class="userpanel">
 {{>leftpanel}}
-<div class="content">
-    <div class="content-header">
-        <div class="suggestion">
-            <div class="suggestion-title">International Cuisine</div>
-        </div>
-        
-    </div>
-    <h1>{{foundGroup.group_name}}</h1>
-        
-        {{#if userBelongsToGroup}}
-        <p>User in group</p>
-        {{/if}}
-</div>
+{{>content}}
 {{>rightpanel}}
 </div>

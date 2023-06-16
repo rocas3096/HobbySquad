@@ -1,6 +1,6 @@
 .rightpanel {
-  /* background-color: purple; */
   overflow: hidden;
+  border-left: 1px solid #dbdbdb;
 }
 .top-search {
   border-bottom: 1px solid #dbdbdb;
@@ -19,7 +19,9 @@
   justify-content: space-between;
   padding-left: 15px;
   width: 350px;
-  margin: 50px 100px 0 100px;
+  margin: 0 auto;
+  margin-top: 50px;
+  /* margin: 50px 100px 0 100px; */
 }
 #q {
   width: 100%;

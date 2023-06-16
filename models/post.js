@@ -5,44 +5,21 @@ class Post extends Model {}
 
 Post.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
+    content: {
+      type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    title: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    group_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "group",
-        key: "id",
-      },
     },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "user",
-        key: "id",
-      },
     },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+    group_id: {
+      type: DataTypes.INTEGER,
     },
   },
   {
     sequelize,
-    timestamps: true, // Enables automatic 'createdAt' and 'updatedAt' fields
-    freezeTableName: true,
-    underscored: true,
-    modelName: "post",
+    modelName: "Post",
   }
 );
-
 module.exports = Post;
