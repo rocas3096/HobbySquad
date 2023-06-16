@@ -3,6 +3,7 @@ const seedUsers = require("./user");
 const seedGroups = require("./group");
 const seedTags = require("./tag");
 const seedUsersAndGroups = require("./userGroup");
+const seedPosts = require("./post");
 const seedAll = async () => {
   try {
     await sequelize.sync({ force: true });
@@ -10,6 +11,7 @@ const seedAll = async () => {
     await seedGroups();
     await seedUsersAndGroups();
     await seedTags();
+    await seedPosts();
 
     console.log("Database seeding completed");
     process.exit();
