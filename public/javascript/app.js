@@ -2,6 +2,7 @@ import "./toggleNav.js";
 import "./handleSearchToggle.js";
 import "./handleScrollToGroups.js";
 import "./form-validation.js";
+import "./leave-group.js";
 
 import "./groupHelpers.js";
 import "./handleModal.js";
