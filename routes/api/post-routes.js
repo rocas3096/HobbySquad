@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const { Post } = require("../../models");
+const { Post, Group, User } = require("../../models");
+const ExpressError = require("../../util/ExpressError");
 
 // Get all posts
 router.get("/", async (req, res) => {
@@ -15,6 +16,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id);
+
     if (!postData) {
       res.status(404).json({ message: "No post found with this id!" });
       return;
@@ -26,11 +28,24 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a new post
-router.post("/", async (req, res) => {
+router.post("/:group_id/:user_id", async (req, res, next) => {
   try {
-    const postData = await Post.create(req.body);
-    res.status(200).json(postData);
+    const { group_id, user_id } = req.params;
+    const group = await Group.findByPk(group_id);
+    const user = await User.findByPk(user_id);
+    if (!group) {
+      return next(new ExpressError("Group does not exists", "group", 404));
+    }
+    if (!user) {
+      return next(new ExpressError("User does not exists", "user", 404));
+    }
+    const { content } = req.body;
+    let newPost = await Post.create({ content, user_id, group_id });
+    let data = { ...newPost.dataValues, user };
+    console.log({ data });
+    res.status(201).json({ msg: "success", data });
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });

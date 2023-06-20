@@ -6,12 +6,11 @@ class Post extends Model {}
 Post.init(
   {
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
     },
     group_id: {
       type: DataTypes.INTEGER,

@@ -40,7 +40,6 @@
 .form-input:focus {
   border: 1px solid #4792e7;
   box-shadow: 0 0 4px #1b76ddb2;
-
   transition: 0.5s;
 }
 
@@ -153,6 +152,7 @@
 .auth-btn-login.loading .loading-circle {
   opacity: 1;
 }
+
 @keyframes spin {
   0% {
     transform: translate(-50%, -50%) rotate(0deg);

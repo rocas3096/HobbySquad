@@ -1,4 +1,6 @@
+<div class="backdrop-left"></div>
 <div class="leftpanel">
+  <div class="scrollable">
   <div class="logo">
     {{>logoSm}}
   </div>
@@ -11,14 +13,14 @@
     <span class="change-avatar">Change Avatar</span>
   </div>
   <nav class="user-nav">
-    <a class="user-nav-link" href="#">
+    <a id="explore" class="user-nav-link" href="/user-panel">
         <span class="link-icon">
             {{>globeIcon}}
         </span>
         <span class="link-text">Explore</span>
         
     </a>
-    <a class="user-nav-link" href="#">
+    <a id="groups" class="user-nav-link" href="/user-panel/groups">
          <span class="link-icon">
             {{>groupIcon}}
          </span>
@@ -31,6 +33,7 @@
         <span class="link-text">Logout</span>
     </a>
   </nav>
+  </div>
   <footer class="leftpanel-footer">
     <span>©Hobby Squad. All Rights Researved</span>
   </footer>

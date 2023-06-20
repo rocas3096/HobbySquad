@@ -16,7 +16,11 @@ Group.init(
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    owner_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
