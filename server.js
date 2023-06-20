@@ -247,13 +247,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ error: message, type: err.type });
 });
 
-// sync sequelize models to the database, then turn on the server
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
-});
-
 app.get("/logout", (req, res, next) => {
-  // Logs user out 
+  // Logs user out
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
@@ -264,22 +259,29 @@ app.get("/logout", (req, res, next) => {
   });
 });
 
-app.delete("/user-panel/group/:groupId/user/:userId", async (req, res, next) => {
-  try {
-    const groupId = req.params.groupId;
-    const userId = req.params.userId;
+app.delete(
+  "/user-panel/group/:groupId/user/:userId",
+  async (req, res, next) => {
+    try {
+      const groupId = req.params.groupId;
+      const userId = req.params.userId;
 
-    // Perform the necessary actions to remove the user from the group
-    await UserGroup.destroy({
-      where: {
-        GroupId: groupId,
-        UserId: userId,
-      },
-    });
+      await UserGroup.destroy({
+        where: {
+          GroupId: groupId,
+          UserId: userId,
+        },
+      });
 
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
+      res.sendStatus(200);
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(500);
+    }
   }
+);
+
+// sync sequelize models to the database, then turn on the server
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
 });
