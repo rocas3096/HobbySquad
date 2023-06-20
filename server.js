@@ -251,3 +251,35 @@ app.use((err, req, res, next) => {
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
 });
+
+app.get("/logout", (req, res, next) => {
+  // Logs user out 
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    // Redirect the user to the login page after logout
+    res.redirect("/login");
+  });
+});
+
+app.delete("/user-panel/group/:groupId/user/:userId", async (req, res, next) => {
+  try {
+    const groupId = req.params.groupId;
+    const userId = req.params.userId;
+
+    // Perform the necessary actions to remove the user from the group
+    await UserGroup.destroy({
+      where: {
+        GroupId: groupId,
+        UserId: userId,
+      },
+    });
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
