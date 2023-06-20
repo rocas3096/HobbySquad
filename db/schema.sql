@@ -13,18 +13,11 @@ SELECT group_name,username FROM `groups` JOIN users WHERE groups.group_name LIKE
 
 
 SELECT username,content FROM posts p LEFT JOIN users u ON u.id = p.user_id WHERE group_id = 1;
-
+SELECT * from posts where group_id = 1;
+SELECT * FROM users WHERE id = 1;
+SELECT * FROM users WHERE id = 2;
 SELECT * FROM `groups` WHERE group_name = "Hiking Enthusiasts";
 SELECT * FROM usergroups; 
--- SELECT g.id,g.group_name,t.id,t.name
--- FROM `groups` g 
--- LEFT JOIN tag gt
--- ON g.id = gt.group_id
--- LEFT JOIN tags t ON gt.tag_id = t.id
--- WHERE g.group_name = "Photography Club"
--- OR
--- t.name = "Landscape"
--- ;
 SELECT * FROM usergroups;
 SELECT DISTINCT g.id,g.group_name, COUNT(u.`UserId`) AS user_count
 FROM `groups` g
@@ -40,5 +33,70 @@ SELECT * FROM usergroups ug
 ;
 
 SELECT * FROM tags;
-SELECT * FROM `groups`;
+SELECT * FROM `groups` WHERE id = 1;
+SELECT * FROM users;
 
+
+SELECT * FROM `groups` ORDER BY RAND() LIMIT 8;
+
+SELECT username,content FROM posts p LEFT JOIN users u ON p.user_id = u.id WHERE group_id=1;
+
+
+
+
+
+SELECT g.id,g.group_name,g.description,COUNT(ug.UserId) as num_of_groups FROM usergroups ug LEFT JOIN `groups` g ON ug.GroupId = g.id WHERE ug.UserId = 11 GROUP BY g.id,g.group_name,g.description;
+
+
+SELECT g.id, g.group_name, g.description, (
+  SELECT COUNT(*) FROM (
+    SELECT ug.GroupId
+    FROM usergroups ug
+    WHERE ug.UserId = 9
+    GROUP BY ug.GroupId
+  ) AS subquery
+) AS num_of_groups
+FROM `groups` g
+LEFT JOIN usergroups ug ON ug.GroupId = g.id
+WHERE ug.UserId = 9
+GROUP BY g.id, g.group_name, g.description;
+
+
+SELECT * FROM `groups` g WHERE g.id = 4 ;
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT COUNT(*) AS num_of_groups
+FROM usergroups ug LEFT JOIN `groups` g ON ug.GroupId = g.id
+WHERE ug.UserId = 11;
+SELECT * from `groups`;
+
+SELECT * FROM users WHERE users.id = 11;
+
+
+
+SELECT g.group_name, g.description, COUNT(DISTINCT ug.UserId) AS num_of_users
+FROM `groups` g
+JOIN usergroups ug ON ug.GroupId = g.id
+WHERE ug.GroupId IN (
+  SELECT GroupId
+  FROM usergroups
+  WHERE UserId = 11
+)
+GROUP BY g.group_name, g.description;
+
+
+SELECT * FROM `groups` ORDER BY RAND();
+
+
+
+SELECT name FROM tags WHERE group_id = 3;

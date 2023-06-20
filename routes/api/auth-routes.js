@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { User, Group, Hobby } = require("../../models");
 const ExpressError = require("../../util/ExpressError");
-const session = require("express-session");
 const bcrypt = require("bcrypt");
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -63,7 +62,7 @@ router.post("/register", async (req, res, next) => {
     });
     console.log(newUser);
     if (newUser) {
-      req.session.user = newUser.username;
+      req.session.user_id = newUser.id;
       req.session.isLoggedIn = true;
     }
     res.status(201).json({ type: "success" });

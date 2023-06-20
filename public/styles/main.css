@@ -10,6 +10,9 @@
 @import url("./rightpanel.css");
 @import url("./search-result.css");
 @import url("./content.css");
+@import url("./posts.css");
+@import url("./group-content.css");
+@import url("./createGroup.css");
 :root {
   --secondary-font: "Julius Sans One";
   --secondary-color: #1b75dd;
@@ -19,6 +22,7 @@
     #204e83d2 22.16%,
     #000000 263.37%
   );
+  --secondary-light: #499cfc;
   --divider: 1px solid #dbdbdb;
   --error-red: #f07575;
   --error-dark-red: #e93737;
@@ -28,11 +32,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: rgb(255, 255, 255);
   font-family: "Inter";
   overflow-x: hidden;
 }
+.highlighted {
+  background-color: rgba(255, 255, 137, 0.521);
+}
+/* #anchor {
+  position: relative;
+  padding-top: 100px;
+} */
 .auth-btn {
   display: block;
   background-color: none;
@@ -44,6 +56,9 @@ body {
   border-radius: 10px;
   margin: 0 auto;
   cursor: pointer;
+}
+#image-preview {
+  width: 300px;
 }
 .auth-btn:disabled {
   background: var(--btn-gradient-faded);
