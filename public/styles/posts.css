@@ -12,7 +12,9 @@
 .post-container:last-child {
   margin-bottom: 100px;
 }
-
+.posts-container {
+  margin-bottom: 70px;
+}
 .comment-section-title {
   padding: 0;
   border-bottom: 1px solid #dbdbdb;
