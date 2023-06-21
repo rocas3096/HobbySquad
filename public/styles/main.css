@@ -69,3 +69,12 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px rgb(255, 255, 255) inset !important;
 }
+
+.link:link,.link:visited {
+text-decoration: none;
+color:rgb(157, 229, 240);
+font-size: 12px;
+}
+.link:hover,.link:active {
+color:rgb(105, 144, 150);
+}

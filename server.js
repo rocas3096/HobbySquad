@@ -241,12 +241,12 @@ GROUP BY g.group_name, g.description, g.id;
     groupsPage: true,
   });
 });
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
-  res.status(statusCode).json({ error: message, type: err.type });
+app.get("/privacy", (req, res, next) => { 
+  res.render("privacypolicy")
 });
-
+app.get("/terms", (req, res, next) => {
+  res.render("termsofservice")
+});
 app.get("/logout", (req, res, next) => {
   // Logs user out
   req.session.destroy((err) => {
@@ -280,6 +280,13 @@ app.delete(
     }
   }
 );
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(statusCode).json({ error: message, type: err.type });
+});
+
+
 
 // sync sequelize models to the database, then turn on the server
 sequelize.sync({ force: false }).then(() => {
