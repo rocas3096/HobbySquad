@@ -1,8 +1,7 @@
   .login-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 1230px;
-  max-width: 90%;
+  max-width: 1230px;
   margin: 0 auto;
   margin-top: 200px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -12,15 +11,12 @@
 .login-image {
   width: 100%;
 }
-#login-password-form-group,
-#login-username-form-group {
+.form-group {
   position: relative;
 }
-#login-password,
-#login-username {
+.form-input {
   outline: none;
   width: 100%;
-  height: 50px;
   border: 1px solid #c3c3c3;
   transition: 0.5s;
   font-size: 16px;
@@ -29,30 +25,25 @@
   font-weight: 300;
   color: rgb(85, 85, 85);
 }
-#login-password.error-activated,
-#login-username.error-activated {
+.form-input.error-activated {
   border: 1px solid #e93737;
   box-shadow: 0 0 4px #e93737;
 
   transition: 0.5s;
 }
-#login-password-form-group:not(:last-of-type),
-#login-username-form-group:not(:last-of-type) {
+.form-group:not(:last-of-type) {
   margin-bottom: 40px;
 }
-#login-password-form-group:last-of-type,
-#login-username-form-group:last-of-type {
+.form-group:last-of-type {
   margin-bottom: 10px;
 }
-#login-password:focus,
-#login-username:focus {
+.form-input:focus {
   border: 1px solid #4792e7;
   box-shadow: 0 0 4px #1b76ddb2;
   transition: 0.5s;
 }
 
-#login-password:valid + .login-form-label,
-#login-username:valid + .login-form-label {
+.form-input:valid + .form-label {
   left: 0;
   top: 0;
   transform: translate(30%, -50%);
@@ -62,8 +53,7 @@
   opacity: 1;
   padding: 2px 6px;
 }
-#login-password:focus + .login-form-label,
-#login-username:focus + .login-form-label {
+.form-input:focus + .form-label {
   left: 0;
   top: 0;
   transform: translate(30%, -50%);
@@ -74,7 +64,7 @@
   padding: 2px 6px;
 }
 
-.login-form-label {
+.form-label {
   color: rgba(0, 0, 0, 0.404);
   position: absolute;
   opacity: 1;
@@ -128,8 +118,7 @@
 .auth-btn-login.loading {
   position: relative;
 }
-#login-password-form-group.error-activated,
-#login-username-form-group.error-activated {
+.form-group.error-activated {
   animation: shake 0.2s linear 1;
 }
 .input-error {
@@ -163,26 +152,7 @@
 .auth-btn-login.loading .loading-circle {
   opacity: 1;
 }
-@media screen and (max-width: 1235px) {
-  .login-form {
-    padding: 20px 40px;
-    width: 100%;
-  }
-  .login-container {
-    display: grid;
-    grid-template-columns: 100%;
-    width: 600px;
-    max-width: 100%;
-    margin: 0 auto;
-    margin-top: 200px;
-    box-shadow: none;
-    border-radius: 0px;
-    overflow: hidden;
-  }
-  .login-image {
-    display: none;
-  }
-}
+
 @keyframes spin {
   0% {
     transform: translate(-50%, -50%) rotate(0deg);

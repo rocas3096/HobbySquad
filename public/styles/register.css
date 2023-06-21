@@ -1,7 +1,6 @@
  .register-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-
   max-width: 1230px;
   margin: 0 auto;
   margin-top: 150px;
@@ -18,9 +17,8 @@
 .form-input {
   outline: none;
   width: 100%;
-  height: 50px;
   border: 1px solid #c3c3c3;
-  /* transition: 0.5s; */
+  transition: 0.5s;
   font-size: 16px;
   padding: 14px 15px;
   border-radius: 5px;
@@ -156,26 +154,6 @@
 }
 .auth-btn-register.loading .loading-circle {
   opacity: 1;
-}
-@media screen and (max-width: 1277px) {
-  .register-image {
-    display: none;
-  }
-  .register-container {
-    display: grid;
-    grid-template-columns: 100%;
-    max-width: 90%;
-    margin: 0 auto;
-    box-shadow: none;
-    overflow: hidden;
-    margin-top: 150px;
-  }
-  .register-form {
-    padding: 40px 60px;
-    width: 600px;
-    max-width: 100%;
-    margin: 0 auto;
-  }
 }
 @keyframes spin {
   0% {
