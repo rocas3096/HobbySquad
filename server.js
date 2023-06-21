@@ -29,7 +29,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(
   session({
-    secret: "process.env.SESSION_KEY",
+    secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
   })
