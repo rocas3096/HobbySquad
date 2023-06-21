@@ -1,4 +1,4 @@
-const navbar = document.querySelector(".navbar");
+ const navbar = document.querySelector(".navbar");
 if (navbar) {
   window.onscroll = () => {
     if (document.body.scrollTop >= 50) {

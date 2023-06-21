@@ -1,4 +1,4 @@
-let nextGroupBtn = document.querySelector(".next-group");
+  let nextGroupBtn = document.querySelector(".next-group");
 let joinGroupBtn = document.querySelector(".join-group");
 nextGroupBtn?.addEventListener("click", (e) => {
   let currentGroup = parseInt(e.target.id.split("-")[0]);
