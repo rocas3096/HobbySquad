@@ -1,0 +1,148 @@
+.rightpanel {
+  /* overflow: hidden; */
+  background-color: white;
+  border-left: 1px solid #dbdbdb;
+  width: 500px;
+  padding-top: 50px;
+  min-height: 100vh;
+  z-index: 999999;
+}
+.scrollable-right {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+.backdrop {
+  display: none;
+}
+.top-search {
+  border-bottom: 1px solid #dbdbdb;
+}
+.top-search.not-searching {
+  border-bottom: 1px solid transparent;
+}
+.search {
+  background-color: #fafafa;
+  width: max-content;
+  height: max-content;
+  border: 1px solid #00000035;
+  border-radius: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+  width: 350px;
+  margin: 0 auto;
+  /* margin: 50px 100px 0 100px; */
+}
+.scrollable-search {
+  height: 80vh;
+  overflow-y: scroll;
+  border-bottom: 1px solid #dbdbdb;
+}
+#q {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 10px 0px;
+  padding-right: 30px;
+}
+.search-btn {
+  background: none;
+  border: none;
+  /* height: max-content;
+  padding: 10px 20px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  padding-right: 18px;
+}
+.search-info {
+  display: flex;
+  column-gap: 20px;
+  font-size: 12px;
+  margin-top: 50px;
+  margin-bottom: 15px;
+  padding: 0 20px;
+}
+.seperator {
+  color: var(--secondary-color);
+}
+@media screen and (max-width: 1316px) {
+  .backdrop {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.507);
+    width: 100vw;
+    height: 100vh;
+    transition: 0.4s;
+  }
+  .backdrop.open {
+    opacity: 1;
+    transition: 0.4s;
+    pointer-events: auto;
+  }
+  .rightpanel {
+    position: fixed;
+    right: -150%;
+    top: 0;
+    transition: 0.4s;
+  }
+  .rightpanel.open {
+    right: 0;
+    transition: 0.4s;
+  }
+  .scrollable-right {
+    width: 100vw;
+    height: 100vh;
+  }
+  .scrollable-right.open {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: all;
+    z-index: 999;
+  }
+  .scrollable-right {
+    pointer-events: none;
+  }
+}
+@media screen and (max-width: 687px) {
+  .rightpanel {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 589px) {
+  .rightpanel {
+    width: 75%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .rightpanel {
+    width: 85%;
+  }
+
+  .search {
+    background-color: #fafafa;
+    width: max-content;
+    height: max-content;
+    border: 1px solid #00000035;
+    border-radius: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    width: 90%;
+    margin: 0 auto;
+    /* margin: 50px 100px 0 100px; */
+  }
+}
