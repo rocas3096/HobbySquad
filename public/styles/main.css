@@ -1,3 +1,18 @@
+@import url("./navbar.css");
+@import url("./landing.css");
+@import url("./hero.css");
+@import url("./section.css");
+@import url("./login.css");
+@import url("./passwordVisibility.css");
+@import url("./register.css");
+@import url("./userpanel.css");
+@import url("./leftpanel.css");
+@import url("./rightpanel.css");
+@import url("./search-result.css");
+@import url("./content.css");
+@import url("./posts.css");
+@import url("./group-content.css");
+@import url("./createGroup.css");
 :root {
   --secondary-font: "Julius Sans One";
   --secondary-color: #1b75dd;
