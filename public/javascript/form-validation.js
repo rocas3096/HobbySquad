@@ -160,7 +160,7 @@ commentForm?.addEventListener("submit", async (e) => {
     data = { [key]: value };
   }
 
-  let result = await fetch(`http://localhost:3001/api/posts/${group}/${user}`, {
+  let result = await fetch(`/api/posts/${group}/${user}`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -207,7 +207,7 @@ searchForm?.addEventListener("submit", (e) => {
     query = value;
   }
 
-  const results = fetch(`http://localhost:3001/api/groups/search?q=${query}`)
+  const results = fetch(`/api/groups/search?q=${query}`)
     .then((response) => response.json())
     .then((data) => {
       // const results = data.results;

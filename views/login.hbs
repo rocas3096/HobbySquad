@@ -1,3 +1,4 @@
+{{!< layout}}
 {{>navbar}}
 <div class="login-container">
   <div class="login-image">
@@ -5,14 +6,14 @@
   </div>
   <form class="login-form">
     <span class="login-form-title">Login</span>
-    <div id="login-username-form-group" class="form-group">
-      <input id="login-username" autocomplete="off" name="username" type="text" class="form-input" required="true" />
-      <label for="username" class="form-label">Username</label>
+    <div id="login-username-form-group">
+      <input id="login-username" autocomplete="off" name="username" type="text"  required="true" />
+      <label for="username" class="login-form-label">Username</label>
       <span class="input-error error-activated"></span>
     </div>
-    <div id="login-password-form-group" class="form-group">
-      <input autocomplete="off" name="password" id="login-password" type="password" class="form-input" required="true" />
-      <label for="password" class="form-label">Password</label> 
+    <div id="login-password-form-group" >
+      <input autocomplete="off" name="password" id="login-password" type="password"  required="true" />
+      <label for="password" class="login-form-label">Password</label> 
       <span class="input-error"></span>
       {{>passwordVisibility}}
     </div>
