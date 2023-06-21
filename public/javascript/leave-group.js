@@ -1,6 +1,6 @@
 const leaveGroupButton = document.querySelector(".leave-group");
 
-leaveGroupButton.addEventListener("click", (event) => {
+leaveGroupButton?.addEventListener("click", (event) => {
   event.preventDefault();
 
 
