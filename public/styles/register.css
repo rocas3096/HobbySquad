@@ -1,6 +1,7 @@
 .register-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+
   max-width: 1230px;
   margin: 0 auto;
   margin-top: 150px;
