@@ -285,3 +285,87 @@ app.delete(
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
 });
+
+
+
+// form?.addEventListener("submit", async () => {
+//   const formData = new FormData();
+//   formData.append("image", imageInput.files[0]);
+
+//   try {
+//     const response = await fetch("/api/groups", {
+//       method: "POST",
+//       body: formData,
+//     });
+
+//     if (response.ok) {
+//       const imageUrl = await response.text();
+//       imagePreview.src = imageUrl;
+
+//       // Invalidate cache if form submission was successful
+//       const invalidateCacheResponse = await fetch("/api/invalidate-cache", {
+//         method: "POST"
+//       });
+
+//       if(!invalidateCacheResponse.ok) {
+//         console.error("Cache invalidation failed");
+//         // Handle cache invalidation failure scenario
+//       }
+//     } else {
+//       console.error("Image upload failed");
+//       // Handle failure scenario
+//     }
+//   } catch (error) {
+//     console.error("An error occurred:", error);
+//     // Handle error scenario
+//   }
+// });
+
+
+// const redis = require('redis');
+// const util = require('util');
+// const client = redis.createClient();
+
+// // Promisify redis methods
+// client.getAsync = util.promisify(client.get);
+// client.setAsync = util.promisify(client.set);
+
+// client.on('connect', function() {
+//     console.log('Connected to Redis...');
+// });
+
+// client.on('error', function (err) {
+//     console.log('Error ' + err);
+// });
+
+
+// app.get("/user-panel", authorizedUser, async (req, res, next) => {
+//   const user = req.session;
+
+//   // Try to get data from Redis cache
+//   let exploreGroups = await client.getAsync('exploreGroups');
+//   if(exploreGroups) {
+//     console.log("Cache hit");
+//     exploreGroups = JSON.parse(exploreGroups);
+//   } else {
+//     console.log("Cache miss");
+//     // If cache miss, query database and store result in cache
+//     exploreGroups = await Group.findAll({
+//       order: sequelize.literal("RAND()"),
+//     });
+//     await client.setAsync('exploreGroups', JSON.stringify(exploreGroups));
+//   }
+  
+//   // Remaining part of your route handler...
+// });
+
+
+// app.post("/api/invalidate-cache", authorizedUser, async (req, res) => {
+//   try {
+//     // Delete the 'exploreGroups' key from Redis
+//     await client.delAsync('exploreGroups');
+//     res.status(200).send('Cache invalidated successfully');
+//   } catch (err) {
+//     res.status(500).send(err.message);
+//   }
+// });
