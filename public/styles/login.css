@@ -12,12 +12,15 @@
 .login-image {
   width: 100%;
 }
-.form-group {
+#login-password-form-group,
+#login-username-form-group {
   position: relative;
 }
-.form-input {
+#login-password,
+#login-username {
   outline: none;
   width: 100%;
+  height: 50px;
   border: 1px solid #c3c3c3;
   transition: 0.5s;
   font-size: 16px;
@@ -26,25 +29,30 @@
   font-weight: 300;
   color: rgb(85, 85, 85);
 }
-.form-input.error-activated {
+#login-password.error-activated,
+#login-username.error-activated {
   border: 1px solid #e93737;
   box-shadow: 0 0 4px #e93737;
 
   transition: 0.5s;
 }
-.form-group:not(:last-of-type) {
+#login-password-form-group:not(:last-of-type),
+#login-username-form-group:not(:last-of-type) {
   margin-bottom: 40px;
 }
-.form-group:last-of-type {
+#login-password-form-group:last-of-type,
+#login-username-form-group:last-of-type {
   margin-bottom: 10px;
 }
-.form-input:focus {
+#login-password:focus,
+#login-username:focus {
   border: 1px solid #4792e7;
   box-shadow: 0 0 4px #1b76ddb2;
   transition: 0.5s;
 }
 
-.form-input:valid + .form-label {
+#login-password:valid + .login-form-label,
+#login-username:valid + .login-form-label {
   left: 0;
   top: 0;
   transform: translate(30%, -50%);
@@ -54,7 +62,8 @@
   opacity: 1;
   padding: 2px 6px;
 }
-.form-input:focus + .form-label {
+#login-password:focus + .login-form-label,
+#login-username:focus + .login-form-label {
   left: 0;
   top: 0;
   transform: translate(30%, -50%);
@@ -65,7 +74,7 @@
   padding: 2px 6px;
 }
 
-.form-label {
+.login-form-label {
   color: rgba(0, 0, 0, 0.404);
   position: absolute;
   opacity: 1;
@@ -119,7 +128,8 @@
 .auth-btn-login.loading {
   position: relative;
 }
-.form-group.error-activated {
+#login-password-form-group.error-activated,
+#login-username-form-group.error-activated {
   animation: shake 0.2s linear 1;
 }
 .input-error {
