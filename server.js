@@ -1,9 +1,9 @@
 const express = require("express");
 const routes = require("./routes");
-const livereload = require("livereload");
+// const livereload = require("livereload");
 const hbs = require("hbs");
 const path = require("path");
-const connectLiveReload = require("connect-livereload");
+// const connectLiveReload = require("connect-livereload");
 const session = require("express-session");
 const sequelize = require("./config/connection");
 const { Group, User, Post, Tag } = require("./models");
@@ -12,17 +12,17 @@ const UserGroup = require("./models/userGroup");
 const bodyParser = require("body-parser");
 const sharp = require("sharp");
 const { imageObj } = require("./util/ImageObj");
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
-});
+// const liveReloadServer = livereload.createServer();
+// liveReloadServer.server.once("connection", () => {
+//   setTimeout(() => {
+//     liveReloadServer.refresh("/");
+//   }, 100);
+// });
 const app = express();
 const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
-app.use(connectLiveReload());
+// app.use(connectLiveReload());
 hbs.registerPartials(path.join(__dirname, "views/partials"));
 
 app.set("views", path.join(__dirname, "views"));
