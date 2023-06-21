@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const { Group, User } = require("../../models");
+const { Hobby, User } = require("../../models");
 
 router.get("/", async (req, res) => {
   try {
-    const groupData = await Group.findAll({
+    const hobbyData = await Hobby.findAll({
       include: [User],
     });
-    res.status(200).json(groupData);
+    res.status(200).json(hobbyData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -14,16 +14,16 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const groupData = await Group.findByPk(req.params.id, {
+    const hobbyData = await Hobby.findByPk(req.params.id, {
       include: [User],
     });
 
-    if (!groupData) {
-      res.status(400).json({ message: "No group found with that id!" });
+    if (!hobbyData) {
+      res.status(400).json({ message: "No hobby found with that id!" });
       return;
     }
 
-    res.status(200).json(groupData);
+    res.status(200).json(hobbyData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -31,8 +31,8 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const newGroup = await Group.create(req.body);
-    res.status(200).json(newGroup);
+    const newHobby = await Hobby.create(req.body);
+    res.status(200).json(newHobby);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -40,20 +40,20 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const updatedGroup = await Group.update(req.body, {
+    const updatedHobby = await Hobby.update(req.body, {
       where: { id: req.params.id },
     });
 
-    if (updatedGroup[0] === 0) {
-      res.status(404).json({ message: "No group found with that id!" });
+    if (updatedHobby[0] === 0) {
+      res.status(404).json({ message: "No hobby found with that id!" });
       return;
     }
 
-    const groupData = await Group.findByPk(req.params.id, {
+    const hobbyData = await Hobby.findByPk(req.params.id, {
       include: [User],
     });
 
-    res.status(200).json(groupData);
+    res.status(200).json(hobbyData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -61,16 +61,16 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const rowsAffected = await Group.destroy({
+    const rowsAffected = await Hobby.destroy({
       where: { id: req.params.id },
     });
 
     if (rowsAffected === 0) {
-      res.status(404).json({ message: "No group found with that id!" });
+      res.status(404).json({ message: "No hobby found with that id!" });
       return;
     }
 
-    res.status(200).json("Group has been deleted.");
+    res.status(200).json("Hobby has been deleted.");
   } catch (err) {
     res.status(500).json(err);
   }

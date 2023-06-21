@@ -1,35 +1,59 @@
-const Group = require("./group");
-const Post = require("./post");
-const Tag = require("./tag");
 const User = require("./user");
-const UserGroup = require("./userGroup");
-// const Post = require("./post");
-// Associations
+const Group = require("./group");
+const Hobby = require("./hobby");
+const HobbyHasTag = require("./hobbyTag");
+const Tag = require("./tag");
+const UserHasGroup = require("./userGroup");
+const UserHasHobby = require("./userHobby");
 
-Group.belongsTo(User, {
-  foreignKey: "owner_id",
-});
-Tag.belongsTo(Group, { foreignKey: "group_id" });
+// Associations
 User.belongsToMany(Group, {
-  through: UserGroup,
-  foreignKey: "UserId",
+  through: UserHasGroup,
+  foreignKey: "user_id",
+  otherKey: "group_id",
 });
 Group.belongsToMany(User, {
-  through: UserGroup,
-  foreignKey: "GroupId",
+  through: UserHasGroup,
+  foreignKey: "group_id",
+  otherKey: "user_id",
 });
-Group.hasOne(User, {
-  foreignKey: "owner_id",
+
+User.belongsToMany(Hobby, {
+  through: UserHasHobby,
+  foreignKey: "user_id",
+  otherKey: "hobby_id",
 });
-UserGroup.hasMany(User, { foreignKey: "UserId" });
-UserGroup.hasMany(Group, { foreignKey: "GroupId" });
-Group.hasMany(Tag, { foreignKey: "group_id" });
-Post.belongsTo(Group, { foreignKey: "group_id" });
-Post.belongsTo(User, { foreignKey: "user_id" });
+Hobby.belongsToMany(User, {
+  through: UserHasHobby,
+  foreignKey: "hobby_id",
+  otherKey: "user_id",
+});
+
+Hobby.belongsToMany(Tag, {
+  through: HobbyHasTag,
+  foreignKey: "hobby_id",
+  otherKey: "tag_id",
+});
+Tag.belongsToMany(Hobby, {
+  through: HobbyHasTag,
+  foreignKey: "tag_id",
+  otherKey: "hobby_id",
+});
+
+Group.hasOne(Tag, {
+  foreignKey: "id",
+});
+Tag.belongsTo(Group, {
+  foreignKey: "id",
+});
+
 // Export the models
 module.exports = {
   User,
   Group,
+  Hobby,
+  HobbyHasTag,
   Tag,
-  Post,
+  UserHasGroup,
+  UserHasHobby,
 };

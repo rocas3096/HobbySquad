@@ -1,8 +1,35 @@
-const { Model, DataTypes } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class UserGroup extends Model {}
+class UserHasGroup extends Model {}
 
-UserGroup.init({}, { sequelize, modelName: "UserGroup" });
+UserHasGroup.init(
+  {
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
+    group_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
+    group_tag_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
+  },
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "UserHasGroup",
+    tableName: "user_has_group",
+  }
+);
 
-module.exports = UserGroup;
+module.exports = UserHasGroup;
+
