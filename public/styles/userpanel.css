@@ -1,4 +1,4 @@
-.userpanel {
+ .userpanel {
   height: 100vh;
   display: grid;
   grid-template-columns: max-content 1fr 500px;

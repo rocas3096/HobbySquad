@@ -1,4 +1,4 @@
-const Tag = require("../models/tag");
+ const Tag = require("../models/tag");
 
 const tagData = [
   { name: "Tag 1" },

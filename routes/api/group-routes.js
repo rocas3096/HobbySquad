@@ -1,6 +1,6 @@
-const router = require("express").Router();
-const { Group, User } = require("../../models");
-
+ const router = require("express").Router();
+const sequelize = require("../../config/connection");
+const { Group, User, Tag } = require("../../models");
 router.get("/", async (req, res) => {
   try {
     const groupData = await Group.findAll({
@@ -11,7 +11,35 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get("/search", async (req, res, next) => {
+  const { q } = req.query;
+  console.log(q);
+  let results;
+  try {
+    if (!q || q.length === 0) {
+      results = [];
+    } else {
+      results = await sequelize.query(
+        "SELECT DISTINCT g.id, g.group_name, g.description, COALESCE(u.user_count, 0) AS user_count FROM `groups` g LEFT JOIN ( SELECT GroupId, COUNT(*) AS user_count FROM usergroups GROUP BY GroupId ) u ON g.id = u.GroupId LEFT JOIN tags t ON g.id = t.group_id WHERE TRIM(g.group_name) LIKE :searchTerm OR TRIM(t.name) LIKE :searchTerm;",
+        {
+          replacements: { searchTerm: `%${q}%` },
+        }
+      );
+      results = results[0];
+    }
 
+    const searchData = {
+      isSearching: true,
+      quantity: results.length,
+      searchEmpty: results.length === 0,
+      term: q,
+      results,
+    };
+    res.status(200).json(searchData);
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.get("/:id", async (req, res) => {
   try {
     const groupData = await Group.findByPk(req.params.id, {
@@ -30,11 +58,22 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  try {
-    const newGroup = await Group.create(req.body);
-    res.status(200).json(newGroup);
-  } catch (err) {
-    res.status(400).json(err);
+  let { title, tags, description, userId } = req.body;
+  tags = tags.split(",");
+  let newGroup = await Group.create({
+    group_name: title,
+    description,
+    owner_id: userId,
+  });
+  const foundUser = await User.findByPk(userId);
+
+  for (let tag of tags) {
+    await Tag.create({ name: tag, group_id: newGroup.id });
+  }
+  if (newGroup && foundUser) {
+    await newGroup.addUser(foundUser);
+    await foundUser.addGroup(newGroup);
+    res.redirect(`/user-panel/group/${newGroup.id}`);
   }
 });
 

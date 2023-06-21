@@ -1,0 +1,118 @@
+ .leftpanel {
+  background-color: #1f4b7e;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 345px;
+}
+
+.scrollable {
+  position: fixed;
+}
+.leftpanel .logo {
+  padding: 20px;
+  margin-bottom: 70px;
+}
+.leftpanel .logo svg {
+  display: flex;
+  width: max-content;
+}
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.username {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.user-avatar {
+  display: block;
+  background-color: white;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.change-avatar {
+  font-size: 12px;
+  color: white;
+}
+.user-nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-top: 40px;
+  row-gap: 6px;
+}
+.backdrop-left {
+  display: none;
+}
+.user-nav-link:link,
+.user-nav-link:visited {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  width: 330px;
+  color: white;
+  padding: 15px 18px;
+  font-size: 20px;
+  border-radius: 5px;
+  transition: 0.2s;
+  text-decoration: none;
+}
+.user-nav-link:hover,
+.user-nav-link:active,
+.user-nav-link.active:link,
+.user-nav-link.active:visited {
+  background-color: #ffffff33;
+  transition: 0.2s;
+}
+
+.leftpanel-footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 12px;
+  padding: 8px;
+  color: rgba(255, 255, 255, 0.592);
+  border-top: 1px solid rgba(255, 255, 255, 0.592);
+}
+@media screen and (max-width: 1000px) {
+  .backdrop {
+    display: none;
+  }
+  .backdrop-left {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.507);
+    width: 100vw;
+    height: 100vh;
+    transition: 0.4s;
+    z-index: 9999;
+  }
+  .backdrop-left.open {
+    opacity: 1;
+    transition: 0.4s;
+    pointer-events: auto;
+  }
+  .leftpanel {
+    position: fixed;
+    left: -150%;
+    transition: 0.4s;
+    height: 100vh;
+    max-height: 100vh;
+    z-index: 99999;
+  }
+  .leftpanel.open {
+    left: 0;
+    transition: 0.4s;
+  }
+}

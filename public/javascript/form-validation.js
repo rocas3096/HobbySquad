@@ -1,4 +1,4 @@
-import { generateError, removeError } from "./error-handling.js";
+  import { generateError, removeError } from "./error-handling.js";
 
 import { handlePasswordVisibility } from "./password-visibility.js";
 import { validateEmail } from "./validate-email.js";
