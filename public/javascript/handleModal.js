@@ -6,6 +6,6 @@ createGroupLink?.addEventListener("click", (e) => {
   console.log(e.target);
   createGroupModal.classList.add("open");
 });
-exit.addEventListener("click", (e) => {
+exit?.addEventListener("click", (e) => {
   createGroupModal.classList.remove("open");
 });
