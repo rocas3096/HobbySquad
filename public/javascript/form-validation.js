@@ -207,7 +207,7 @@ searchForm?.addEventListener("submit", (e) => {
     query = value;
   }
 
-  const results = fetch(`http://localhost:3001/api/groups/search?q=${query}`)
+  const results = fetch(`/api/groups/search?q=${query}`)
     .then((response) => response.json())
     .then((data) => {
       // const results = data.results;
