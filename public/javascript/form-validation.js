@@ -160,7 +160,7 @@ commentForm?.addEventListener("submit", async (e) => {
     data = { [key]: value };
   }
 
-  let result = await fetch(`http://localhost:3001/api/posts/${group}/${user}`, {
+  let result = await fetch(`/api/posts/${group}/${user}`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
