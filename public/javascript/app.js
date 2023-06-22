@@ -1,4 +1,4 @@
-import "./toggleNav.js";
+ import "./toggleNav.js";
 import "./handleSearchToggle.js";
 import "./handleScrollToGroups.js";
 import "./form-validation.js";

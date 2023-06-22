@@ -1,4 +1,4 @@
-export const generateError = (id, msg) => {
+ export const generateError = (id, msg) => {
   let input = document.querySelector(`#${id}`);
   let formGroup = document.querySelector(`#${id}-form-group`);
   formGroup.classList.add("error-activated");

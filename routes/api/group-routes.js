@@ -1,4 +1,4 @@
-const router = require("express").Router();
+ const router = require("express").Router();
 const sequelize = require("../../config/connection");
 const { Group, User, Tag } = require("../../models");
 router.get("/", async (req, res) => {

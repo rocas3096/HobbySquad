@@ -1,4 +1,5 @@
- const express = require("express");
+
+const express = require("express");
 const routes = require("./routes");
 // const livereload = require("livereload");
 const hbs = require("hbs");
@@ -241,11 +242,11 @@ GROUP BY g.group_name, g.description, g.id;
     groupsPage: true,
   });
 });
-app.get("/privacy", (req, res, next) => { 
-  res.render("privacypolicy")
+app.get("/privacy", (req, res, next) => {
+  res.render("privacypolicy");
 });
 app.get("/terms", (req, res, next) => {
-  res.render("termsofservice")
+  res.render("termsofservice");
 });
 app.get("/logout", (req, res, next) => {
   // Logs user out
@@ -285,8 +286,6 @@ app.use((err, req, res, next) => {
   const message = err.message || "Internal Server Error";
   res.status(statusCode).json({ error: message, type: err.type });
 });
-
-
 
 // sync sequelize models to the database, then turn on the server
 sequelize.sync({ force: false }).then(() => {

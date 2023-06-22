@@ -1,4 +1,4 @@
-let visibleIcon = document.querySelector(".password-visible");
+ let visibleIcon = document.querySelector(".password-visible");
 let notVisibleIcon = document.querySelector(".password-not-visible");
 let passwordInput = document.getElementById("login-password");
 let regPasswordInput = document.getElementById("register-password");
