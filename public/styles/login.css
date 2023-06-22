@@ -1,4 +1,4 @@
- .login-container {
+.login-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 1230px;

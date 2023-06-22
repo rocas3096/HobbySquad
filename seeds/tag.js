@@ -1,4 +1,4 @@
- const Tag = require("../models/tag");
+const Tag = require("../models/tag");
 
 let tags = [
   { name: "Hiking", group_id: 1 },

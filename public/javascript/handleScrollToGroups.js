@@ -1,4 +1,4 @@
- // document.addEventListener("DOMContentLoaded", (e) => {
+// document.addEventListener("DOMContentLoaded", (e) => {
 //   let links = document.querySelectorAll("#anchor");
 //   let groupSections = document.querySelectorAll(".group-item");
 //   links.forEach((link) => {

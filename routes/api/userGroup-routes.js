@@ -1,4 +1,4 @@
- const router = require("express").Router();
+const router = require("express").Router();
 const { UserHasGroup } = require("../../models");
 
 // Get all UserHasGroup associations
@@ -29,7 +29,9 @@ router.put("/:id", async (req, res) => {
     });
 
     if (updatedUserHasGroup[0] === 0) {
-      res.status(404).json({ message: "No UserHasGroup association found with that id!" });
+      res
+        .status(404)
+        .json({ message: "No UserHasGroup association found with that id!" });
       return;
     }
 
@@ -47,7 +49,9 @@ router.delete("/:id", async (req, res) => {
     });
 
     if (rowsAffected === 0) {
-      res.status(404).json({ message: "No UserHasGroup association found with that id!" });
+      res
+        .status(404)
+        .json({ message: "No UserHasGroup association found with that id!" });
       return;
     }
 

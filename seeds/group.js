@@ -1,4 +1,4 @@
- const { Group } = require("../models");
+const { Group } = require("../models");
 
 let groups = [
   {

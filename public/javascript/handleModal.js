@@ -1,4 +1,4 @@
- const createGroupModal = document.querySelector(".modal");
+const createGroupModal = document.querySelector(".modal");
 const createGroupLink = document.querySelector(".create-group");
 const exit = document.querySelector(".exit");
 

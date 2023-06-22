@@ -1,4 +1,4 @@
- const { User, Group } = require("../models");
+const { User, Group } = require("../models");
 
 const seedUsersAndGroups = async () => {
   try {

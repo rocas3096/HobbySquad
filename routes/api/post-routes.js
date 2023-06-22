@@ -1,4 +1,4 @@
- const router = require("express").Router();
+const router = require("express").Router();
 const { Post, Group, User } = require("../../models");
 const ExpressError = require("../../util/ExpressError");
 

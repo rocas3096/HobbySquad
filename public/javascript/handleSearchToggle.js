@@ -1,4 +1,4 @@
- const searchToggler = document.querySelector(".search-toggler");
+const searchToggler = document.querySelector(".search-toggler");
 const searchPanel = document.querySelector(".rightpanel");
 const backdrop = document.querySelector(".backdrop");
 const backdropLeft = document.querySelector(".backdrop-left");

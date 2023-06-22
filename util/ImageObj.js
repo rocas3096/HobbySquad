@@ -1,3 +1,3 @@
- module.exports.imageObj = {
+module.exports.imageObj = {
   galaxy: "/images/galaxy.webp",
 };

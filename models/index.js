@@ -1,4 +1,4 @@
- const Group = require("./group");
+const Group = require("./group");
 const Post = require("./post");
 const Tag = require("./tag");
 const User = require("./user");
