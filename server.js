@@ -96,27 +96,14 @@ app.get("/user-panel", authorizedUser, async (req, res, next) => {
 
   const { q } = req.query;
 
-  // Retrieve exploreGroups from cache or database
-  let exploreGroups = groupCache.get("exploreGroups");
-  if (!exploreGroups) {
-    exploreGroups = await Group.findAll();
-    groupCache.set("exploreGroups", exploreGroups);
-  } else {
-    // Randomize the order of exploreGroups array
-    exploreGroups = shuffleArray(exploreGroups);
-  }
+  let exploreGroups = await Group.findAll({
+    order: sequelize.literal("RAND()"),
+  });
 
-  // Retrieve suggestionGroups from cache or database
-  let suggestionGroups = groupCache.get("suggestionGroups");
-  if (!suggestionGroups) {
-    suggestionGroups = await Group.findAll({
-      limit: 8,
-    });
-    groupCache.set("suggestionGroups", suggestionGroups);
-  } else {
-    // Randomize the order of suggestionGroups array
-    suggestionGroups = shuffleArray(suggestionGroups);
-  }
+  let suggestionGroups = await Group.findAll({
+    order: sequelize.literal("RAND()"),
+    limit: 8,
+  });
 
   // Function to shuffle the order of an array using Fisher-Yates algorithm
   function shuffleArray(array) {
@@ -268,6 +255,11 @@ app.get(
   "/user-panel/group/:group_id/user/:user_id",
   authorizedUser,
   async (req, res, next) => {
+    userCountsCache = {};
+    groupImagesCache = {};
+    userCache.flushAll();
+    groupCache.flushAll();
+
     const { group_id, user_id } = req.params;
     const foundUser = await User.findByPk(user_id);
     const foundGroup = await Group.findByPk(group_id);
@@ -330,6 +322,11 @@ app.get("/terms", (req, res, next) => {
 
 // Logout
 app.get("/logout", (req, res, next) => {
+  userCountsCache = {};
+  groupImagesCache = {};
+  userCache.flushAll();
+  groupCache.flushAll();
+
   // Logs user out
   req.session.destroy((err) => {
     if (err) {
@@ -361,6 +358,11 @@ app.delete(
   "/user-panel/group/:groupId/user/:userId",
   async (req, res, next) => {
     try {
+      userCountsCache = {};
+      groupImagesCache = {};
+      userCache.flushAll();
+      groupCache.flushAll();
+
       const groupId = req.params.groupId;
       const userId = req.params.userId;
 
