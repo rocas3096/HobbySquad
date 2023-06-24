@@ -1,0 +1,33 @@
+.privacypolicy-header, .privacypolicy-subheader, .privacypolicy-p, .privacypolicy-list,.privacypolicy-list li, .privacypolicy-list ul  {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.privacypolicy-header {
+    
+font-weight: bold;
+font-size: 28px;
+text-align: center;
+color: rgb(3, 3, 45);
+}
+.privacypolicy-subheader {
+    text-align: left;
+    color: rgb(3, 3, 45);
+    margin: 20px;
+}
+.privacypolicy-p {
+    text-align: left;
+    margin: 20px;
+    font-size: 18px;
+}
+.privacypolicy-list {
+    font-size: 18px;
+    text-align: left;
+    margin: 20px;
+}
+.privacypolicy-list li{
+list-style-type: circle;
+font-size: 18px;
+text-align: left;
+margin-left: 28px;
+padding-left: 5px;
+}
+

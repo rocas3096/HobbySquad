@@ -1,0 +1,32 @@
+.termsofservice-header, .termsofservice-subheader, .termsofservice-p, .termsofservice-list,.termsofservice-list li  {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.termsofservice-header {
+    
+font-weight: bold;
+font-size: 28px;
+text-align: center;
+color: rgb(3, 3, 45);
+}
+.termsofservice-subheader {
+    text-align: left;
+    color: rgb(3, 3, 45);
+    margin: 20px;
+}
+.termsofservice-p {
+    text-align: left;
+    margin: 20px;
+    font-size: 18px;
+}
+.termsofservice-list {
+    font-size: 18px;
+    text-align: left;
+    margin: 20px;
+}
+.termsofservice-list li{
+list-style-type: circle;
+font-size: 18px;
+text-align: left;
+margin-left: 28px;
+padding-left: 5px;
+}

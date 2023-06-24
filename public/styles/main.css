@@ -13,6 +13,8 @@
 @import url("./posts.css");
 @import url("./group-content.css");
 @import url("./createGroup.css");
+@import url("./privacypolicy.css");
+@import url("./termsofservice.css");
 :root {
   --secondary-font: "Julius Sans One";
   --secondary-color: #1b75dd;
