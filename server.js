@@ -99,20 +99,33 @@ app.get("/user-panel", authorizedUser, async (req, res, next) => {
   // Retrieve exploreGroups from cache or database
   let exploreGroups = groupCache.get("exploreGroups");
   if (!exploreGroups) {
-    exploreGroups = await Group.findAll({
-      order: sequelize.literal("RAND()"),
-    });
+    exploreGroups = await Group.findAll();
     groupCache.set("exploreGroups", exploreGroups);
+  } else {
+    // Randomize the order of exploreGroups array
+    exploreGroups = shuffleArray(exploreGroups);
   }
 
   // Retrieve suggestionGroups from cache or database
   let suggestionGroups = groupCache.get("suggestionGroups");
   if (!suggestionGroups) {
     suggestionGroups = await Group.findAll({
-      order: sequelize.literal("RAND()"),
       limit: 8,
     });
     groupCache.set("suggestionGroups", suggestionGroups);
+  } else {
+    // Randomize the order of suggestionGroups array
+    suggestionGroups = shuffleArray(suggestionGroups);
+  }
+
+  // Function to shuffle the order of an array using Fisher-Yates algorithm
+  function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
   }
 
   // Retrieve user group memberships from cache or database
