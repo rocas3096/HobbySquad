@@ -1,32 +1,25 @@
+//Required modules
 const express = require("express");
-const routes = require("./routes");
-// const livereload = require("livereload");
 const hbs = require("hbs");
 const path = require("path");
-// const connectLiveReload = require("connect-livereload");
 const session = require("express-session");
+const util = require("util");
+const NodeCache = require("node-cache");
+let userCache = new NodeCache();
+let groupCache = new NodeCache();
+
+//Routes and models
+const routes = require("./routes");
 const sequelize = require("./config/connection");
 const { Group, User, Post, Tag } = require("./models");
-const { authorizedUser } = require("./middleware/authMiddleware");
 const UserGroup = require("./models/userGroup");
-const bodyParser = require("body-parser");
-const sharp = require("sharp");
-const { imageObj } = require("./util/ImageObj");
-// const liveReloadServer = livereload.createServer();
-// liveReloadServer.server.once("connection", () => {
-//   setTimeout(() => {
-//     liveReloadServer.refresh("/");
-//   }, 100);
-// });
+const { authorizedUser } = require("./middleware/authMiddleware");
+
+//Express app setup
 const app = express();
 const PORT = process.env.PORT || 3001;
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
-// app.use(connectLiveReload());
-hbs.registerPartials(path.join(__dirname, "views/partials"));
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
+// Middleware
 app.use(
   session({
     secret: "process.env.SESSION_KEY",
@@ -38,8 +31,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+// View engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
+hbs.registerPartials(path.join(__dirname, "views/partials"));
+
+// Live Reload
+// const livereload = require("livereload");
+// const connectLiveReload = require("connect-livereload");
+// const liveReloadServer = livereload.createServer();
+// liveReloadServer.server.once("connection", () => {
+//   setTimeout(() => {
+//     liveReloadServer.refresh("/");
+//   }, 100);
+// });
+// app.use(connectLiveReload());
+
+// Routes
 app.use(routes);
 
+// Landing Page
 app.get("/", async (req, res, next) => {
   const user = req.session;
 
@@ -51,12 +62,16 @@ app.get("/", async (req, res, next) => {
 
   res.render("landing");
 });
+
+// Login Page
 app.get("/login", (req, res, next) => {
   if (req.session.isLoggedIn) {
     return res.redirect("/user-panel");
   }
   res.render("login");
 });
+
+// Registration Page
 app.get("/register", (req, res, next) => {
   if (req.session.isLoggedIn) {
     return res.redirect("/user-panel");
@@ -64,44 +79,86 @@ app.get("/register", (req, res, next) => {
   res.render("register");
 });
 
+// User Panel
+let userCountsCache = {};
+let groupImagesCache = {};
+
 app.get("/user-panel", authorizedUser, async (req, res, next) => {
   const user = req.session;
-  const currentUser = await User.findByPk(user.user_id);
+  const userId = user.user_id;
+
+  // Retrieve user data from cache or database
+  let currentUser = userCache.get(userId);
+  if (!currentUser) {
+    currentUser = await User.findByPk(userId);
+    userCache.set(userId, currentUser);
+  }
+
   const { q } = req.query;
-  let results;
+
   let exploreGroups = await Group.findAll({
     order: sequelize.literal("RAND()"),
   });
+
   let suggestionGroups = await Group.findAll({
     order: sequelize.literal("RAND()"),
     limit: 8,
   });
+
+  // Function to shuffle the order of an array using Fisher-Yates algorithm
+  function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  }
+
+  // Retrieve user group memberships from cache or database
+  const userGroupMemberships = await UserGroup.findAll({
+    where: {
+      UserId: userId,
+      GroupId: exploreGroups.map((group) => group.id),
+    },
+  });
+
   for (let group of exploreGroups) {
-    const tags = await Tag.findAll({ where: { group_id: group.id } });
-    const userGroup = await UserGroup.findOne({
-      where: {
-        UserId: user.user_id,
-        GroupId: group.id,
-      },
-    });
-    const memberCount = await UserGroup.count({
-      distinct: true,
-      col: "UserId",
-      where: {
-        GroupId: group.id,
-      },
-    });
-    group.image = `https://source.unsplash.com/featured?${tags[0].name}`;
+    let tags, userGroup, memberCount;
+
+    if (group.id in userCountsCache) {
+      memberCount = userCountsCache[group.id];
+    } else {
+      memberCount = await UserGroup.count({
+        distinct: true,
+        col: "UserId",
+        where: {
+          GroupId: group.id,
+        },
+      });
+      userCountsCache[group.id] = memberCount;
+    }
+
+    if (group.id in groupImagesCache) {
+      group.image = groupImagesCache[group.id];
+    } else {
+      tags = await Tag.findAll({ where: { group_id: group.id } });
+      group.image = `https://source.unsplash.com/featured?${tags[0].name}`;
+      groupImagesCache[group.id] = group.image;
+    }
+
+    userGroup = userGroupMemberships.find(
+      (membership) => membership.GroupId === group.id
+    );
+
     group.num_of_users = memberCount;
     group.currentUser = req.session.user_id;
+
     if (userGroup) {
       group.userBelongsToGroup = true;
-      group.image = `https://source.unsplash.com/featured?${tags[0].name}`;
       await group.save();
     } else {
       group.userBelongsToGroup = false;
-      group.image = `https://source.unsplash.com/featured?${tags[0].name}`;
-
       await group.save();
     }
   }
@@ -140,6 +197,8 @@ app.get("/user-panel", authorizedUser, async (req, res, next) => {
     console.log(error);
   }
 });
+
+// Group Page
 app.get("/user-panel/group/:id", authorizedUser, async (req, res, next) => {
   const { id } = req.params;
   const tags = await Tag.findAll({ where: { group_id: id } });
@@ -190,10 +249,17 @@ app.get("/user-panel/group/:id", authorizedUser, async (req, res, next) => {
 
   res.render("userpanel", options);
 });
+
+// Add User to Group
 app.get(
   "/user-panel/group/:group_id/user/:user_id",
   authorizedUser,
   async (req, res, next) => {
+    userCountsCache = {};
+    groupImagesCache = {};
+    userCache.flushAll();
+    groupCache.flushAll();
+
     const { group_id, user_id } = req.params;
     const foundUser = await User.findByPk(user_id);
     const foundGroup = await Group.findByPk(group_id);
@@ -205,6 +271,8 @@ app.get(
     }
   }
 );
+
+// User's Groups Page
 app.get("/user-panel/groups", authorizedUser, async (req, res, next) => {
   const user = req.session;
   const query = `
@@ -241,13 +309,24 @@ GROUP BY g.group_name, g.description, g.id;
     groupsPage: true,
   });
 });
+
+// Privacy Policy Page
 app.get("/privacy", (req, res, next) => {
   res.render("privacypolicy");
 });
+
+// Terms of Service Page
 app.get("/terms", (req, res, next) => {
   res.render("termsofservice");
 });
+
+// Logout
 app.get("/logout", (req, res, next) => {
+  userCountsCache = {};
+  groupImagesCache = {};
+  userCache.flushAll();
+  groupCache.flushAll();
+
   // Logs user out
   req.session.destroy((err) => {
     if (err) {
@@ -259,10 +338,31 @@ app.get("/logout", (req, res, next) => {
   });
 });
 
+// Invalidating cache
+app.get("/invalidate-cache", authorizedUser, async (req, res) => {
+  try {
+    userCountsCache = {};
+    groupImagesCache = {};
+    userCache.flushAll();
+    groupCache.flushAll();
+
+    const newGroupId = req.session.newGroupId;
+    res.redirect(`/user-panel/group/${newGroupId}`);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+// Remove User from Group
 app.delete(
   "/user-panel/group/:groupId/user/:userId",
   async (req, res, next) => {
     try {
+      userCountsCache = {};
+      groupImagesCache = {};
+      userCache.flushAll();
+      groupCache.flushAll();
+
       const groupId = req.params.groupId;
       const userId = req.params.userId;
 
@@ -280,13 +380,23 @@ app.delete(
     }
   }
 );
+
+// Error Handling
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   res.status(statusCode).json({ error: message, type: err.type });
 });
 
-// sync sequelize models to the database, then turn on the server
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
-});
+// Database connection
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database connected");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Unable to connect to the database:", err);
+  });

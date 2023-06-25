@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const sequelize = require("../../config/connection");
 const { Group, User, Tag } = require("../../models");
+
 router.get("/", async (req, res) => {
   try {
     const groupData = await Group.findAll({
@@ -11,6 +12,7 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 router.get("/search", async (req, res, next) => {
   const { q } = req.query;
   console.log(q);
@@ -40,6 +42,7 @@ router.get("/search", async (req, res, next) => {
     console.log(error);
   }
 });
+
 router.get("/:id", async (req, res) => {
   try {
     const groupData = await Group.findByPk(req.params.id, {
@@ -73,7 +76,11 @@ router.post("/", async (req, res) => {
   if (newGroup && foundUser) {
     await newGroup.addUser(foundUser);
     await foundUser.addGroup(newGroup);
-    res.redirect(`/user-panel/group/${newGroup.id}`);
+
+    //Store the new group id in the session
+    req.session.newGroupId = newGroup.id;
+    
+    res.redirect(`/invalidate-cache`);
   }
 });
 
