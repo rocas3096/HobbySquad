@@ -20,8 +20,21 @@ User.init(
       allowNull: false,
     },
   },
-
-  { sequelize, modelName: "User" }
+  {
+    sequelize,
+    modelName: "User",
+    indexes: [
+      {
+        unique: true,
+        fields: ["username"],
+      },
+      {
+        unique: true,
+        fields: ["email"],
+      },
+      // Add other necessary indexes here, if any
+    ],
+  }
 );
 
 module.exports = User;
